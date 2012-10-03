@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/libcds/!svn/ver/1/trunk/src/static/mapper
+END
+Mapper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/1/trunk/src/static/mapper/Mapper.cpp
+END
+MapperNone.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/1/trunk/src/static/mapper/MapperNone.cpp
+END
+MapperCont.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/1/trunk/src/static/mapper/MapperCont.cpp
+END
+Mapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/1/trunk/src/static/mapper/Mapper.h
+END
+MapperNone.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/1/trunk/src/static/mapper/MapperNone.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/1/trunk/src/static/mapper/Makefile
+END
+MapperCont.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/1/trunk/src/static/mapper/MapperCont.h
+END

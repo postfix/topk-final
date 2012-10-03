@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/libcds/!svn/ver/58/trunk/src/static/sequence
+END
+wt_node_internal.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node_internal.h
+END
+WaveletTreeNoptrs.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/43/trunk/src/static/sequence/WaveletTreeNoptrs.h
+END
+wt_node.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node.h
+END
+wt_coder.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_coder.cpp
+END
+SequenceBuilderStr.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/libcds/!svn/ver/58/trunk/src/static/sequence/SequenceBuilderStr.cpp
+END
+SequenceAlphPart.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceAlphPart.h
+END
+wt_coder_binary.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/43/trunk/src/static/sequence/wt_coder_binary.cpp
+END
+SequenceBuilderAlphPart.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/libcds/!svn/ver/48/trunk/src/static/sequence/SequenceBuilderAlphPart.cpp
+END
+SequenceGMRChunk.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceGMRChunk.h
+END
+Sequence.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/51/trunk/src/static/sequence/Sequence.h
+END
+SequenceGMR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/58/trunk/src/static/sequence/SequenceGMR.cpp
+END
+SequenceBuilderGMRChunk.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilderGMRChunk.cpp
+END
+wt_coder_huff.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/43/trunk/src/static/sequence/wt_coder_huff.h
+END
+SequenceBuilderGMR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/libcds/!svn/ver/44/trunk/src/static/sequence/SequenceBuilderGMR.cpp
+END
+WaveletTree.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/54/trunk/src/static/sequence/WaveletTree.cpp
+END
+wt_node_internal.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node_internal.cpp
+END
+wt_node_leaf.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node_leaf.h
+END
+SequenceBuilderWaveletTree.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/libcds/!svn/ver/51/trunk/src/static/sequence/SequenceBuilderWaveletTree.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/1/trunk/src/static/sequence/Makefile
+END
+WaveletTreeNoptrs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/libcds/!svn/ver/56/trunk/src/static/sequence/WaveletTreeNoptrs.cpp
+END
+BitmapsSequence.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/43/trunk/src/static/sequence/BitmapsSequence.h
+END
+wt_node.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node.cpp
+END
+SequenceBuilderWaveletTreeNoptrs.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilderWaveletTreeNoptrs.h
+END
+SequenceAlphPart.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/58/trunk/src/static/sequence/SequenceAlphPart.cpp
+END
+SequenceGMRChunk.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceGMRChunk.cpp
+END
+Sequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/libcds/!svn/ver/57/trunk/src/static/sequence/Sequence.cpp
+END
+wt_coder.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_coder.h
+END
+SequenceBuilderStr.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/48/trunk/src/static/sequence/SequenceBuilderStr.h
+END
+wt_coder_huff.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/43/trunk/src/static/sequence/wt_coder_huff.cpp
+END
+wt_coder_binary.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/43/trunk/src/static/sequence/wt_coder_binary.h
+END
+SequenceBuilderAlphPart.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/libcds/!svn/ver/48/trunk/src/static/sequence/SequenceBuilderAlphPart.h
+END
+SequenceGMR.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceGMR.h
+END
+SequenceBuilderGMRChunk.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilderGMRChunk.h
+END
+SequenceBuilder.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilder.h
+END
+wt_node_leaf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/1/trunk/src/static/sequence/wt_node_leaf.cpp
+END
+SequenceBuilderWaveletTree.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/libcds/!svn/ver/51/trunk/src/static/sequence/SequenceBuilderWaveletTree.cpp
+END
+BitmapsSequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/43/trunk/src/static/sequence/BitmapsSequence.cpp
+END
+SequenceBuilderGMR.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilderGMR.h
+END
+WaveletTree.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/43/trunk/src/static/sequence/WaveletTree.h
+END
+SequenceBuilderWaveletTreeNoptrs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/libcds/!svn/ver/43/trunk/src/static/sequence/SequenceBuilderWaveletTreeNoptrs.cpp
+END

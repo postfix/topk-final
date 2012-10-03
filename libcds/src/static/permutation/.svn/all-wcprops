@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/58/trunk/src/static/permutation
+END
+PermutationMRRR.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/1/trunk/src/static/permutation/PermutationMRRR.h
+END
+PermutationBuilderMRRR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/libcds/!svn/ver/1/trunk/src/static/permutation/PermutationBuilderMRRR.cpp
+END
+PermutationBuilder.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/libcds/!svn/ver/43/trunk/src/static/permutation/PermutationBuilder.h
+END
+perm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/58/trunk/src/static/permutation/perm.cpp
+END
+PermutationBuilderMRRR.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/libcds/!svn/ver/1/trunk/src/static/permutation/PermutationBuilderMRRR.h
+END
+Permutation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/15/trunk/src/static/permutation/Permutation.cpp
+END
+perm.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/libcds/!svn/ver/1/trunk/src/static/permutation/perm.h
+END
+PermutationMRRR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/libcds/!svn/ver/1/trunk/src/static/permutation/PermutationMRRR.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/1/trunk/src/static/permutation/Makefile
+END
+Permutation.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/libcds/!svn/ver/18/trunk/src/static/permutation/Permutation.h
+END

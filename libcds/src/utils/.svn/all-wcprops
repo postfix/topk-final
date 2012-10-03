@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/libcds/!svn/ver/50/trunk/src/utils
+END
+Array.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/libcds/!svn/ver/50/trunk/src/utils/Array.cpp
+END
+Array.h
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/43/trunk/src/utils/Array.h
+END
+cppUtils.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/43/trunk/src/utils/cppUtils.cpp
+END
+BitString.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/1/trunk/src/utils/BitString.cpp
+END
+timing.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/48/trunk/src/utils/timing.cpp
+END
+cppUtils.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/43/trunk/src/utils/cppUtils.h
+END
+libcdsTrees.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/libcds/!svn/ver/42/trunk/src/utils/libcdsTrees.h
+END
+BitString.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/libcds/!svn/ver/18/trunk/src/utils/BitString.h
+END
+libcdsBasics.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/libcds/!svn/ver/32/trunk/src/utils/libcdsBasics.h
+END
+libcdsSDArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/24/trunk/src/utils/libcdsSDArray.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/1/trunk/src/utils/Makefile
+END
+timing.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/libcds/!svn/ver/48/trunk/src/utils/timing.h
+END

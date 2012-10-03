@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/libcds/!svn/ver/63/trunk/tests
+END
+testNPR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/34/trunk/tests/testNPR.cpp
+END
+genPatterns.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/63/trunk/tests/genPatterns.py
+END
+toArray2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/libcds/!svn/ver/48/trunk/tests/toArray2.cpp
+END
+genPatternsText.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/libcds/!svn/ver/63/trunk/tests/genPatternsText.py
+END
+intersection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/63/trunk/tests/intersection.cpp
+END
+testBitSequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/32/trunk/tests/testBitSequence.cpp
+END
+testSequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/41/trunk/tests/testSequence.cpp
+END
+intersection.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/62/trunk/tests/intersection.h
+END
+testTextIndex.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/libcds/!svn/ver/33/trunk/tests/testTextIndex.cpp
+END
+testLCP.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/37/trunk/tests/testLCP.cpp
+END
+testArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/libcds/!svn/ver/31/trunk/tests/testArray.cpp
+END
+toArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/48/trunk/tests/toArray.cpp
+END
+testSuffixTree.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/libcds/!svn/ver/37/trunk/tests/testSuffixTree.cpp
+END
+testHuffman.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/1/trunk/tests/testHuffman.cpp
+END
+timeSequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/58/trunk/tests/timeSequence.cpp
+END
+gen_patterns.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/63/trunk/tests/gen_patterns.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/libcds/!svn/ver/63/trunk/tests/Makefile
+END
+runTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/30/trunk/tests/runTests.py
+END

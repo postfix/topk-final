@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/libcds/!svn/ver/58/trunk/src/static/bitsequence
+END
+BitSequenceRG.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/58/trunk/src/static/bitsequence/BitSequenceRG.cpp
+END
+BitSequenceRRR.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/18/trunk/src/static/bitsequence/BitSequenceRRR.h
+END
+BitSequenceSDArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/BitSequenceSDArray.h
+END
+sdarraySadakane.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/sdarraySadakane.h
+END
+BitSequenceBuilderSDArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/libcds/!svn/ver/41/trunk/src/static/bitsequence/BitSequenceBuilderSDArray.cpp
+END
+BitSequenceBuilderRRR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/BitSequenceBuilderRRR.cpp
+END
+BitSequenceRG.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/BitSequenceRG.h
+END
+BitSequenceBuilderRG.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/BitSequenceBuilderRG.cpp
+END
+BitSequence.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/32/trunk/src/static/bitsequence/BitSequence.cpp
+END
+BitSequenceBuilderSDArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/BitSequenceBuilderSDArray.h
+END
+BitSequenceBuilderRRR.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/BitSequenceBuilderRRR.h
+END
+BitSequenceDArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/libcds/!svn/ver/42/trunk/src/static/bitsequence/BitSequenceDArray.cpp
+END
+BitSequenceBuilderRG.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/BitSequenceBuilderRG.h
+END
+BitSequence.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/libcds/!svn/ver/32/trunk/src/static/bitsequence/BitSequence.h
+END
+BitSequenceDArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/BitSequenceDArray.h
+END
+BitSequenceBuilderDArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/libcds/!svn/ver/41/trunk/src/static/bitsequence/BitSequenceBuilderDArray.cpp
+END
+BitSequenceBuilder.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/BitSequenceBuilder.h
+END
+TableOffsetRRR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/TableOffsetRRR.cpp
+END
+BitSequenceBuilderDArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/libcds/!svn/ver/24/trunk/src/static/bitsequence/BitSequenceBuilderDArray.h
+END
+TableOffsetRRR.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/TableOffsetRRR.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/1/trunk/src/static/bitsequence/Makefile
+END
+BitSequenceRRR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/libcds/!svn/ver/51/trunk/src/static/bitsequence/BitSequenceRRR.cpp
+END
+BitSequenceSDArray.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/libcds/!svn/ver/32/trunk/src/static/bitsequence/BitSequenceSDArray.cpp
+END
+sdarraySadakane.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/libcds/!svn/ver/32/trunk/src/static/bitsequence/sdarraySadakane.cpp
+END

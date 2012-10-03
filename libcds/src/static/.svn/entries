@@ -1,0 +1,49 @@
+10
+
+dir
+63
+http://svn.recoded.cl/libcds/trunk/src/static
+http://svn.recoded.cl/libcds
+
+
+
+2011-03-30T12:41:34.483310Z
+61
+rcanovas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+41656f23-c745-496b-8a1c-052032c6b90f
+
+coders
+dir
+
+mapper
+dir
+
+suffixtree
+dir
+
+bitsequence
+dir
+
+permutation
+dir
+
+sequence
+dir
+
+textindex
+dir
+

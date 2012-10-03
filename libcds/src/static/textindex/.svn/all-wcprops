@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/libcds/!svn/ver/52/trunk/src/static/textindex
+END
+suftest3.test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/34/trunk/src/static/textindex/suftest3.test.cpp
+END
+mmap.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/32/trunk/src/static/textindex/mmap.h
+END
+TextIndex.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/libcds/!svn/ver/33/trunk/src/static/textindex/TextIndex.h
+END
+comparray4.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/42/trunk/src/static/textindex/comparray4.cpp
+END
+TextIndexCSA.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/34/trunk/src/static/textindex/TextIndexCSA.cpp
+END
+interface.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/libcds/!svn/ver/32/trunk/src/static/textindex/interface.h
+END
+comparray4.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/34/trunk/src/static/textindex/comparray4.h
+END
+qsufsort.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/32/trunk/src/static/textindex/qsufsort.cpp
+END
+TextIndexCSA.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/33/trunk/src/static/textindex/TextIndexCSA.h
+END
+mmap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/32/trunk/src/static/textindex/mmap.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/32/trunk/src/static/textindex/Makefile
+END
+TextIndex.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/libcds/!svn/ver/32/trunk/src/static/textindex/TextIndex.cpp
+END

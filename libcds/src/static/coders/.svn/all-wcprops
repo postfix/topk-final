@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/libcds/!svn/ver/22/trunk/src/static/coders
+END
+Coder.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/libcds/!svn/ver/1/trunk/src/static/coders/Coder.h
+END
+HuffmanCoder.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/libcds/!svn/ver/22/trunk/src/static/coders/HuffmanCoder.cpp
+END
+HuffmanCoder.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/1/trunk/src/static/coders/HuffmanCoder.h
+END
+huff.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/1/trunk/src/static/coders/huff.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/libcds/!svn/ver/1/trunk/src/static/coders/Makefile
+END
+huff.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/libcds/!svn/ver/1/trunk/src/static/coders/huff.h
+END

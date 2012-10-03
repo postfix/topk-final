@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/libcds/!svn/ver/61/trunk/src/static/suffixtree
+END
+LCP_DAC_VAR.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_DAC_VAR.h
+END
+NPR_FMN.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/NPR_FMN.h
+END
+NPR.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/NPR.h
+END
+LCP_naive.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/LCP_naive.h
+END
+NSV.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/NSV.cpp
+END
+PSV.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/PSV.cpp
+END
+LCP_Sad.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_Sad.h
+END
+SuffixTreeY.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/61/trunk/src/static/suffixtree/SuffixTreeY.cpp
+END
+LCP_PhiSpare.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_PhiSpare.h
+END
+LCP_PT.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_PT.cpp
+END
+factorization.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/factorization.h
+END
+LCP.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP.h
+END
+LCP_FMN.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_FMN.h
+END
+SuffixTree.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/SuffixTree.cpp
+END
+NPR_CN.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/NPR_CN.h
+END
+factorization_var.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/factorization_var.cpp
+END
+LCP_DAC.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_DAC.cpp
+END
+RMQ_succinct_lcp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/RMQ_succinct_lcp.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/Makefile
+END
+LCP_DAC_VAR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_DAC_VAR.cpp
+END
+RMQ_succinct.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/RMQ_succinct.h
+END
+NPR_FMN.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/NPR_FMN.cpp
+END
+NPR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/NPR.cpp
+END
+LCP_naive.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/LCP_naive.cpp
+END
+LCP_Sad.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_Sad.cpp
+END
+LCP_PhiSpare.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/LCP_PhiSpare.cpp
+END
+NSV.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/NSV.h
+END
+factorization.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/factorization.cpp
+END
+PSV.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/PSV.h
+END
+LCP.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP.cpp
+END
+LCP_FMN.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_FMN.cpp
+END
+NPR_CN.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/libcds/!svn/ver/42/trunk/src/static/suffixtree/NPR_CN.cpp
+END
+SuffixTreeY.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/libcds/!svn/ver/59/trunk/src/static/suffixtree/SuffixTreeY.h
+END
+LCP_PT.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_PT.h
+END
+SuffixTree.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/libcds/!svn/ver/59/trunk/src/static/suffixtree/SuffixTree.h
+END
+factorization_var.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/factorization_var.h
+END
+RMQ_succinct.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/RMQ_succinct.cpp
+END
+LCP_DAC.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/LCP_DAC.h
+END
+RMQ_succinct_lcp.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/libcds/!svn/ver/37/trunk/src/static/suffixtree/RMQ_succinct_lcp.h
+END
