@@ -6,9 +6,9 @@ using namespace std;
 
 #define MAX(i,j) (((i) > (j)) ? (i) : (j))
 
+typedef unsigned char byte;
 namespace cds_utils
 {
-	typedef unsigned char byte;
 
 	static const unsigned int  MAXINT=0x7fffffff;
 	static const unsigned int  FACT_RANK = 20;
