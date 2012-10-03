@@ -646,7 +646,8 @@ namespace cds_static
                 // for (int j = 0 ; j < n;j++) {
                 //     cout << weight[j];
                 // }
-                cout << endl;
+
+                cout << "level = " << i << "of " << height << endl;
                 rmq[i] = new RMQ((int*)weight, n);
                 i ++;
                 if (i == height) {
