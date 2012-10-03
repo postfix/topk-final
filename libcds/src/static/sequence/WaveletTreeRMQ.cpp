@@ -597,19 +597,19 @@ namespace cds_static
 
      void WaveletTreeRMQ::sortWeights(uint *weight) {
         uint i = 0;
-        queue<pair<uint, uint> > ranges;
-        ranges.push(make_pair(0u, n));
+        queue<pair<size_t, size_t> > ranges;
+        ranges.push(make_pair((size_t)0u, n));
 
         while (i < height) {
-            pair<uint, uint> r = ranges.front();
+            pair<size_t, size_t> r = ranges.front();
             ranges.pop();
 
-            uint ini = r.first;
-            uint fin = r.second;
-            uint w_left = 0;
-            uint w_right = 0;
+            size_t ini = r.first;
+            size_t fin = r.second;
+            size_t w_left = 0;
+            size_t w_right = 0;
 
-            for (int k = ini ; k < fin ; k++) {
+            for (size_t k = ini ; k < fin ; k++) {
                 if (bitstring[i]->access(k) == 0) {
                     w_left++;
                 }
@@ -620,8 +620,8 @@ namespace cds_static
 
             uint *weight_aux_left = new uint[w_left];
             uint *weight_aux_right = new uint[w_right];
-            uint pos_left = 0, pos_right = 0;
-            for (int k = ini; k < fin; k++) {
+            size_t pos_left = 0, pos_right = 0;
+            for (size_t k = ini; k < fin; k++) {
                 if (bitstring[i]->access(k)) {
                     weight_aux_right[pos_right++] = weight[k];
                 }
@@ -634,9 +634,9 @@ namespace cds_static
             assert(pos_right == w_right);
             assert(pos_left + pos_right == fin - ini);
 
-            for (int k = 0; k < pos_left; k++)
+            for (size_t k = 0; k < pos_left; k++)
                 weight[k + ini] = weight_aux_left[k];
-            for (int k = 0; k < pos_right; k++)
+            for (size_t k = 0; k < pos_right; k++)
                 weight[k + ini + pos_left] = weight_aux_right[k];
 
             ranges.push(make_pair(ini, ini+pos_left));
