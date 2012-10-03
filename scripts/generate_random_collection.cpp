@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 			new_text[i] = base[i];
 		for (int i = 0; i < edits; i++) {
 			int pos = rand() % len_base;
-			while (new_text[pos] != base[pos]) {
+			while (new_text[pos] == base[pos]) {
 				new_text[pos] = alphabet[rand() % alphabet.length()];
 			}
 		}
