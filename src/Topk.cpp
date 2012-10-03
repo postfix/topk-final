@@ -274,11 +274,11 @@ void Topk::generateSequence() {
     this->d_sequence = new WaveletTreeRMQ(*A, bsb, map,(uint*)norm_weight);
 
     
-    delete A;
-    delete []norm_weight;
-    delete this->da;
-    delete this->ll;
-    delete this->stp;
+    // delete A;
+    // delete []norm_weight;
+    // delete this->da;
+    // delete this->ll;
+    // delete this->stp;
     //delete bsmap;
    // delete bsleaf;
     cout << "Done! " << endl;
