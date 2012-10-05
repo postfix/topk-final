@@ -231,25 +231,29 @@ void Topk::generateSequence() {
     uint *depth_sequence_array = new uint[depth_sequence.size()];
     cout << "hardcopying the depth sequences " << endl;
     // hard copy depth_sequence
-    // for (uint i = 0 ; i < depth_sequence.size();i++) {
-    //     depth_sequence_array[i] = depth_sequence[i];
-    // }
+    this->freq_array = new uint[depth_sequence.size()];
+    uint *norm_weight = new uint[depth_sequence.size()];
+
+    for (size_t i = 0 ; i < depth_sequence.size();i++) {
+         depth_sequence_array[i] = depth_sequence[i];
+	 this->freq_array[i] = frequencies[i];
+	 assert(this->max_freq >= frequencies[i]);
+	 norm_weight[i] = this->max_freq - frequencies[i];
+    }
     cout << "done!" << endl;
+    cout << "max freq is = " << this->max_freq << endl;
     // depth sequences
     // cout << "pointer_size = " << this->pointer_size << endl;
     this->gd_sequence = &depth_sequence[0];
-    this->freq_array = &frequencies[0];
+//    this->freq_array = &frequencies[0];
     uint *document_array = &this->documents[0];
 
     // norm_weight is the normalized weight (reversed orderder), to use it with the RMQ
-    int *norm_weight = new int[ this->pointer_size ];
-    std::map<uint,uint> freq_map; // for statistics
-    for(int i = 0 ; i < depth_sequence.size();i++) {
-        freq_map[frequencies[i]] = freq_map[frequencies[i]] + 1;
-        this->freq_array[i] = frequencies[i];
-        norm_weight[i] = this->max_freq - frequencies[i]; // reversing the frequencies
-    }
-    // std::map<uint,uint>::const_iterator it;
+//    uint *norm_weight = new uint[this->pointer_size ];
+    cout << "pointer_size = " << this->pointer_size << endl;
+    cout << "depth_sequence size = " << depth_sequence.size() << endl;
+  //  std::map<uint,uint> freq_map; // for statistics
+   // std::map<uint,uint>::const_iterator it;
 
     // for (it = freq_map.begin(); it != freq_map.end(); ++it) {
     //     cout << it->first << "\t" << it->second << endl;
@@ -257,8 +261,8 @@ void Topk::generateSequence() {
 
     cout << "Sorting Freqs and documents..." << endl;
     // using stable sort, to match to the leafs of the wavelet tree
-    sort(this->gd_sequence,this->freq_array,document_array,this->pointer_size);
-    cout << "Done!" << endl;
+    //sort(this->gd_sequence,this->freq_array,document_array,this->pointer_size);
+    //cout << "Done!" << endl;
      // for (int i = 0 ; i < this->pointer_size;i++ )
      // {
      //     cout << "| " << i << " | " << gd_sequence[i] << " | " <<  this->freq_array[i] << " | " << document_array[i] << endl;
@@ -271,7 +275,7 @@ void Topk::generateSequence() {
     Array *A = new Array(depth_sequence_array,this->pointer_size);
     MapperNone * map = new MapperNone();
     BitSequenceBuilder * bsb = new BitSequenceBuilderRG(30);
-    this->d_sequence = new WaveletTreeRMQ(*A, bsb, map,(uint*)norm_weight);
+    this->d_sequence = new WaveletTreeRMQ(*A, bsb, map,norm_weight);
 
     
     // delete A;

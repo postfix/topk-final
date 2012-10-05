@@ -52,7 +52,7 @@ class DocumentArray
         }
 
         size_t countRange(uint symbol,size_t i,size_t j) {
-            return this->doc_sequence->rank(symbol,j) - (i>0?this->doc_sequence->rank(symbol,i-1):0)+1;
+            return this->doc_sequence->rank(symbol,j) - (i>0?this->doc_sequence->rank(symbol,i):0)+1;
         }
 
         pair<size_t, size_t> selectDocument(uint doc,size_t num) {

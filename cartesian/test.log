@@ -1,0 +1,41 @@
+entered with:0,10
+max is = 11
+pos is = 8
+entered with:0,8
+max is = 9
+pos is = 4
+entered with:0,4
+max is = 8
+pos is = 3
+entered with:0,3
+max is = 6
+pos is = 1
+entered with:0,1
+max is = 5
+pos is = 0
+entered with:2,3
+max is = 2
+pos is = 2
+entered with:5,8
+max is = 7
+pos is = 5
+entered with:6,8
+max is = 3
+pos is = 6
+entered with:7,8
+max is = 1
+pos is = 7
+entered with:9,10
+max is = 0
+pos is = 9
+(11
+(9
+(8
+(6
+(5
+()())(2
+()()))())(7
+()(3
+()(1
+()()))))(0
+()()))

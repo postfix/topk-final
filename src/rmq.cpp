@@ -1,11 +1,13 @@
 #include <rmq.h>
 
 using namespace rmq_space;
-RMQ::RMQ(int *A,int n)
+RMQ::RMQ(int *A,size_t n)
 {
+	int W2 = 32;
 	this->n = n ;
 	this->bitmap = buildrmq(A,n);
-	this->t = new tree_ff(this->bitmap,2*(n+1),OPT_FAST_LCA | OPT_FAST_PREORDER_SELECT | OPT_FAST_LEAF_SELECT);
+	this->t = new tree_ff(this->bitmap,2*(n+1)+W2-1,OPT_FAST_LCA | OPT_FAST_PREORDER_SELECT | OPT_FAST_LEAF_SELECT);
+	cout << "n = " << n << endl;
 	//delete[] A;
 }
 
@@ -16,7 +18,7 @@ RMQ::~RMQ()
 }
 
 
-unsigned int RMQ::query(int i,int j)
+unsigned int RMQ::query(size_t i,size_t j)
 {
 	uint v1 = this->t->Preorden_Select(i+2);
 	uint v2 = this->t->Preorden_Select(j+2);
@@ -34,46 +36,62 @@ size_t RMQ::getSize()
 	return this->t->size();
 }
 
-
 int RMQ::mapTree (unsigned int *bitmap, Tree *T, int i)
 {
+	  int W2 = 32;
+//	  if (i >= n) cout << "WTF! i = " << i  << " n = " << n << endl;
+	  uint total = (2*(n+1)+W2-1)/W2; 
+	  if(i/W2 < total) {
 	  if (T == NULL) return i;
 	   i = mapTree (bitmap, T->prevSibl, i);
-	   bitmap[i/W] &= ~(1<<(i%W)); i++; // parentesis[i++] = 0;
-	   // bitmap[i/W] |= (1u<<31) >> (i%W); i++; // parentesis[i++] = 1;
+
+	   if (i/W2 < total)  {
+		   bitmap[i/W2] &= ~(1<<(i%W2)); i++; // parentesis[i++] = 0;
+	   }  else  {
+		return total;
+	   }
+
 	   i = mapTree (bitmap, T->lastChild, i);
-	   bitmap[i/W] |= 1<<(i%W); i++; // parentesis[i++] = 1;
-	   // bitmap[i/W] &= ~((1u<<31)>>(i%W)); i++; // parentesis[i++] = 0;
-	   return i;
+
+	   if (i/W2 < total)  {
+		   bitmap[i/W2] |= 1<<(i%W2); i++; // parentesis[i++] = 1;
+	   } else { 
+		return total;
+            }
+	   } else {
+	   return total;
+	   }
 }
 
 
-unsigned int *RMQ::buildrmq (int *A, int n)
+unsigned int *RMQ::buildrmq (int *A, size_t n)
 {
+	  int W2 = 32;
 	  Tree *T = new Tree();
 	  Path *P = new Path(); // lista bottom up del rightmost path
-	  int i;
+	  size_t i;
 	  unsigned int *bitmap;
 	 
 	  //T = (Tree)malloc (sizeof(struct sTree));
 	  T->prevSibl = T->lastChild = NULL;
 	  T->pos = -1; // fake root
-	  
+	  cout << "T->Pos = " << T->pos << endl; 
 	  //P = (Path)malloc (sizeof(struct sPath));
 	  P->node = T;
 	  P->next = NULL;
 
 	  for (i=0;i<n;i++) // ubicar A[i] en el rightmost path
 	  {
-	      Path *p;
+	          Path *p;
 		  Tree *t;
 		  while ((P->node->pos != -1) && (A[P->node->pos] >= A[i]))
-	    {
-	        p = P->next;
-		      delete P;
-		      P = p;
-	    }
+	    	   {
+	       		 p = P->next;
+	//		 delete P;
+		         P = p;
+	    	   }
 			// found the insertion point
+	//	  cout << "pos = " << i << endl;
 		  t = new Tree(); //(Tree)malloc(sizeof(struct sTree));
 		  t->pos = i;
 		  t->lastChild = NULL;
@@ -89,12 +107,12 @@ unsigned int *RMQ::buildrmq (int *A, int n)
 	  while (P != NULL)
 	  {
 	    Path *p = P->next;
-	    delete P;//free(P);
+	  //  delete P;//free(P);
 	    P = p;
 	  }
-	  bitmap = (unsigned int*)malloc (sizeof(unsigned int) * ((2*(n+1)+W-1)/W));
+	  bitmap = (unsigned int*)malloc (sizeof(unsigned int) * ((2*(n+1)+W2-1)/W2));
 	  mapTree (bitmap,T,0);
-	  delete T;
+//	  delete T;
 	  // delete t;
 	  return bitmap;
 }

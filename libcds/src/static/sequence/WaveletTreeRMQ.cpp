@@ -646,9 +646,14 @@ namespace cds_static
                 // for (int j = 0 ; j < n;j++) {
                 //     cout << weight[j];
                 // }
-
+		int *weight_aux = new int[n];
+		cout << " n = " << n << endl;
+		for (size_t j = 0 ; j < n ; j++) {
+			weight_aux[j] = (int)weight[j];
+		}
+		weight = (uint*)weight_aux;
                 cout << "level = " << i << "of " << height << endl;
-                rmq[i] = new RMQ((int*)weight, n);
+                rmq[i] = new RMQ(weight_aux, n);
                 i ++;
                 if (i == height) {
                     this->last_weight = new factorization(weight,n);

@@ -37,14 +37,14 @@ namespace rmq_space
 	class RMQ
 	{
 	public:
-		int n;
+		size_t n;
 		unsigned int *bitmap;
 		tree_ff *t;
-		int mapTree (unsigned int *bitmap, Tree *T, int i);
-		unsigned int *buildrmq (int *A, int n);
-		RMQ(int *A,int n);
+		int  mapTree (unsigned int *bitmap, Tree *T, int i);
+		unsigned int *buildrmq (int *A, size_t n);
+		RMQ(int *A,size_t n);
 		~RMQ();
-		unsigned int query(int i,int j);
+		unsigned int query(size_t i,size_t j);
 		size_t getSize();
 		
 	};
