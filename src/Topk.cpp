@@ -274,7 +274,7 @@ void Topk::generateSequence() {
     cout << "Constructing Wavelet Tree of Depth Sequences" << endl;
     Array *A = new Array(depth_sequence_array,this->pointer_size);
     MapperNone * map = new MapperNone();
-    BitSequenceBuilder * bsb = new BitSequenceBuilderRG(30);
+    BitSequenceBuilder * bsb = new BitSequenceBuilderRG(20);
     this->d_sequence = new WaveletTreeRMQ(*A, bsb, map,norm_weight);
 
     
@@ -395,7 +395,7 @@ size_t Topk::getSize() {
     size_t wt_size = this->d_sequence->getSize();
     size_t freq_array_size = this->freq_dacs->getSize();
     size_t tree_size = this->t->size();
-    size_t map_size = this->bitsequence_map->getSize() + this->bitsequence_leaf->getSize() + this->bitsequence_leaf->getSize();
+    size_t map_size = this->bitsequence_map->getSize() + this->bitsequence_leaf->getSize();
     size_t documents_size = this->doc_array->getSize();
     
     size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size;
