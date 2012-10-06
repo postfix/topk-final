@@ -50,8 +50,7 @@ namespace cds_static
         uint * new_symb = new uint[n + to_add];
         for (uint i = 0; i < n; i++)
             new_symb[i] = symbols[i];
-        delete [] symbols;
-
+        
         to_add = 0;
         for (uint i = 1; i <= max_v + 1; i++)
         if (OCC[i] == 0) {
@@ -61,6 +60,7 @@ namespace cds_static
         }
 
         uint new_n = n + to_add;
+        cout << "n = " << n << " new_n = " << new_n << endl;
         for(uint i = 1;i <= max_v + 1; i++)
             OCC[i] += OCC[i - 1];
         this->n = new_n;
@@ -71,16 +71,26 @@ namespace cds_static
             for(uint j = 0; j < new_n / W + 1; j++)
                 _bm[i][j] = 0;
         }
-        this->rmq = new RMQ*[height];
+        this->rmq = new RMQ*[height + 1];
         build_level(_bm, new_symb, 0, new_n, 0);
         bitstring = new BitSequence*[height];
         for(uint i = 0; i < height; i++) {
             bitstring[i] = bmb->build(_bm[i], new_n);
             delete [] _bm[i];
         }
-        sortWeights(weight);
+
+        uint maxw = weight[0];
+        for (uint i = 0; i < length; i++)
+            maxw = max(maxw, weight[i]);
+        uint *newweights = new uint[n];
+        for (int i = 0; i < length; i++)
+            newweights[i] = weight[i];
+        for (int i = length; i < n; i++)
+            newweights[i] = maxw+1;
+        sortWeights(newweights, symbols);
 
         delete [] _bm;
+        delete [] symbols;
 
         bmb->unuse();
     }
@@ -220,9 +230,12 @@ namespace cds_static
             uint pos;
             uint start = ni1;
             if (level == height) {
-                uint m = rmq[level-1]->query(start+i1,start+i2);
-                RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,leftb,rightb,this->last_weight->access(m+1),m,level,symb,m,ni1,ni2);
-                ranges.push(ri);
+                if (symb >= j1 && symb <= j2) {
+                    cout << "symb is " << symb << " j1 = " << j1 << " j2 = " << j2 << endl;
+                    uint m = rmq[level]->query(start+i1,start+i2);
+                    RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,j1,j2,this->last_weight->access(m+1),m,level,symb,m,ni1,ni2);
+                    ranges.push(ri);
+                }
                 return;
             } 
             if (start+i2 >= start+i1) {
@@ -234,8 +247,9 @@ namespace cds_static
                 size_t end = ni2;
                 while(lev<height) {
                     cout << "entered here!" << endl;
-                    // if(pos>=start_aux && pos<=end) return;
+                    if(!(pos>=start_aux && pos<=end)) return;
                     if(bitstring[lev]->access(pos)) {
+                        ret |= (1 << (height - lev - 1));
                         pos=bitstring[lev]->rank1(pos-1)-bitstring[lev]->rank1(start_aux-1);
                         start_aux=(bitstring[lev]->rank1(end)-bitstring[lev]->rank1(start_aux-1));
                         start_aux=end-start_aux+1;
@@ -249,9 +263,12 @@ namespace cds_static
                     }
                     lev++;
                 }
-            
-            RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,leftb,rightb,this->last_weight->access(pos+1),pos,level,symb,m,ni1,ni2);
-            ranges.push(ri);
+            if (ret >= j1 && ret <= j2 ) {
+                cout << "ret is " << ret << " j1 = " << j1 << " j2 = " << j2 << endl;
+                 RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,j1,j2,this->last_weight->access(pos+1),pos,level,symb,m,ni1,ni2);
+                 ranges.push(ri);
+            }
+            return;
             } else return;
             return;
         }
@@ -296,23 +313,35 @@ namespace cds_static
         while (!ranges.empty() && count < k) {
             RangeInfo *r = ranges.top();
             ranges.pop();
-            res.push(new TopkResult(r->w,r->pos));
-            count ++;
+            cout << "Adding position " << r->pos << " weight = " << r->w << endl;
+            if (r->w != 0) {
+                res.push(new TopkResult(r->w,r->pos));
+                count ++;
+                continue;
+            }
             // if (r->levelpos-1 == r->x1) continue;
             // if (r->levelpos+1 == r->x2) continue;
            // if (r->level == height) continue;
             //if (r->levelpos == 0)  continue; 
             if (r->level == height) {
                 if (r->x1 < r->levelpos-1 && r->levelpos != 0) {
-                    uint m = rmq[r->level-1]->query(r->x1,r->levelpos-1);
-                    RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
-                    ranges.push(ri);
+                    if (r->sym >= r->y1 && r->sym <= r->y2) {
+                        cout << "ret1 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+
+                        uint m = rmq[r->level]->query(r->x1,r->levelpos-1);
+                        RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
+                        ranges.push(ri);
+                    }
                     continue;
+
                 } 
                 if (r->levelpos+1 < r->x2 ) {
-                    uint m = rmq[r->level-1]->query(r->levelpos+1,r->x2);
-                    RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
-                    ranges.push(ri);
+                    if (r->sym >= r->y1 && r->sym <= r->y2) {
+                        cout << "ret2 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                        uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
+                        RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
+                        ranges.push(ri);
+                    }
                     continue;
                 }  
             } 
@@ -324,8 +353,9 @@ namespace cds_static
                 uint end = r->endx;
                 uint lev = r->level;
                 while(lev<height) {
-                   // if (pos>=start && pos<=end) return;
+                   if (!(pos>=start && pos<=end)) return;
                     if(bitstring[lev]->access(pos)) {
+                        ret |= (1 << (height - lev - 1));
                         pos=bitstring[lev]->rank1(pos-1)-bitstring[lev]->rank1(start-1);
                         start=(bitstring[lev]->rank1(end)-bitstring[lev]->rank1(start-1));
                         start=end-start+1;
@@ -339,8 +369,12 @@ namespace cds_static
                     }
                     lev++;
                 }
-                RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
-                ranges.push(ri);
+                if (ret >= r->y1 && ret <= r->y2 ) {
+                    cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+
+                    RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
+                    ranges.push(ri);
+                }
             }
             if (r->levelpos+1 < r->x2 ) {
                 uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
@@ -350,9 +384,10 @@ namespace cds_static
                 uint end = r->endx;
                 uint lev = r->level;
                 while(lev<height) {
-                    //if(pos>=start && pos<=end) return;
+                    if(!(pos>=start && pos<=end)) return;
                     if(bitstring[lev]->access(pos)) {
                         pos=bitstring[lev]->rank1(pos-1)-bitstring[lev]->rank1(start-1);
+                        ret |= (1 << (height - lev - 1));
                         start=(bitstring[lev]->rank1(end)-bitstring[lev]->rank1(start-1));
                         start=end-start+1;
                         pos+=start;
@@ -365,8 +400,11 @@ namespace cds_static
                     }
                     lev++;
                 }
-                RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
-                ranges.push(ri);
+                if (ret >= r->y1 && ret <= r->y2 ) {
+                    cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                    RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
+                    ranges.push(ri);
+                }  
             }
         }
     }
@@ -429,6 +467,7 @@ namespace cds_static
     }
 
     void WaveletTreeRMQ::build_level(uint **bm, uint *symbols, uint level, uint length, uint offset) {
+        // rmqs[level-1] = new RMQ((int*)weights, n);
         if (level == height) {
             delete [] symbols;
             return;
@@ -441,14 +480,18 @@ namespace cds_static
 
         uint cright = length - cleft;
 
+        // uint *leftw = new uint[cleft];
+        // uint *rightw = new uint[cright];
         uint *left = new uint[cleft];
         uint *right = new uint[cright];
         cleft = cright = 0;
         for (size_t i = 0; i < length; i++) {
             if (!is_set(symbols[i], level)) {
+                // leftw[cleft] = weights[i]
                 left[cleft++] = symbols[i];
                 bitclean(bm[level], offset + i);
             } else {
+                // rightw[cright] = weights[i];
                 right[cright++] = symbols[i];
                 bitset(bm[level], offset + i);
             }
@@ -476,6 +519,7 @@ namespace cds_static
                 cleft++;
 
         uint cright = length - cleft;
+
 
         uint *left = new uint[(cleft * width) / W + 1];
         uint *right = new uint[(cright * width) / W + 1];
@@ -595,11 +639,13 @@ namespace cds_static
         return pair<uint,size_t>(am->unmap(sym),static_cast<uint>(freq));
     }
 
-     void WaveletTreeRMQ::sortWeights(uint *weight) {
+     void WaveletTreeRMQ::sortWeights(uint *weight, uint *symbols) {
         uint i = 0;
         queue<pair<size_t, size_t> > ranges;
         ranges.push(make_pair((size_t)0u, n));
 
+
+        rmq[0] = new RMQ((int*)weight, n);
         while (i < height) {
             pair<size_t, size_t> r = ranges.front();
             ranges.pop();
@@ -609,23 +655,31 @@ namespace cds_static
             size_t w_left = 0;
             size_t w_right = 0;
 
+            cout << " ini = " << ini << " fin = " << fin << " n = " << n << endl;
+
             for (size_t k = ini ; k < fin ; k++) {
-                if (bitstring[i]->access(k) == 0) {
-                    w_left++;
+                if (bitstring[i]->access(k)) {
+                    assert(is_set(symbols[k], i));
+                    w_right++;
                 }
                 else {
-                    w_right++;
+                    assert(!is_set(symbols[k], i));
+                    w_left++;
                 }
             }
 
             uint *weight_aux_left = new uint[w_left];
             uint *weight_aux_right = new uint[w_right];
+            uint *symbols_aux_left = new uint[w_left];
+            uint *symbols_aux_right = new uint[w_right];
             size_t pos_left = 0, pos_right = 0;
             for (size_t k = ini; k < fin; k++) {
                 if (bitstring[i]->access(k)) {
-                    weight_aux_right[pos_right++] = weight[k];
+                    weight_aux_right[pos_right] = weight[k];
+                    symbols_aux_right[pos_right++] = symbols[k];
                 }
                 else {
+                    symbols_aux_left[pos_left] = symbols[k];
                     weight_aux_left[pos_left++] = weight[k];
                 }
             }
@@ -634,32 +688,37 @@ namespace cds_static
             assert(pos_right == w_right);
             assert(pos_left + pos_right == fin - ini);
 
-            for (size_t k = 0; k < pos_left; k++)
+            for (size_t k = 0; k < pos_left; k++) {
                 weight[k + ini] = weight_aux_left[k];
-            for (size_t k = 0; k < pos_right; k++)
+                symbols[k+ini] = symbols_aux_left[k];
+            }
+            for (size_t k = 0; k < pos_right; k++) {
                 weight[k + ini + pos_left] = weight_aux_right[k];
+                symbols[k+ini+pos_left] = symbols_aux_right[k];
+            }
+            assert(pos_right + ini + pos_left == fin);
 
-            ranges.push(make_pair(ini, ini+pos_left));
-            ranges.push(make_pair(ini+pos_left, fin));
+            if (pos_left > 0)
+                ranges.push(make_pair(ini, ini+pos_left));
+            if (ini + pos_left < fin)
+                ranges.push(make_pair(ini+pos_left, fin));
 
             if (fin == n) {
-                // for (int j = 0 ; j < n;j++) {
-                //     cout << weight[j];
-                // }
-		int *weight_aux = new int[n];
-		cout << " n = " << n << endl;
-		for (size_t j = 0 ; j < n ; j++) {
-			weight_aux[j] = (int)weight[j];
-		}
-		weight = (uint*)weight_aux;
                 cout << "level = " << i << "of " << height << endl;
-                rmq[i] = new RMQ(weight_aux, n);
                 i ++;
-                if (i == height) {
-                    this->last_weight = new factorization(weight,n);
-                }
+                rmq[i] = new RMQ((int*)weight, n);
             }
+            
+            delete[] weight_aux_right;
+            delete[] weight_aux_left;
+            delete [] symbols_aux_left;
+            delete [] symbols_aux_right;
         }
+        for (size_t i = 0; i < n - 1; i++) {
+            cout << symbols[i] << " " << symbols[i+1] << endl;
+            assert(symbols[i] <= symbols[i+1]);
+        }
+        this->last_weight = new factorization(weight,n);
     }
 
 };

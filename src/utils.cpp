@@ -36,7 +36,7 @@ void sort(uint array[], uint array2[], uint array3[], uint n) {
   for (uint i=0; i < n; i++) {
     vec[i] = make_pair(array[i], i);
   }
-  std::stable_sort(vec.begin(), vec.end());
+  std::sort(vec.begin(), vec.end());
   uint *tmp = new uint[n];
   permute_values(array, tmp, vec, n);
   permute_values(array2, tmp, vec, n);
@@ -102,10 +102,19 @@ size_t *mergeFiles(vector<string> files, size_t n)
   		if (result != size) {fputs ("Reading error",stderr); exit (3);}
 		  printf ("Size of file %i ,  %ld bytes.\n",i,size);
 			fwrite (buffer , 1 , size, faux );
-		  delete [] (buffer);
+      char c = 0;
+      fwrite (&c , 1 , 1, faux );
+      c = 255;
+      fwrite (&c , 1 , 1, faux );
+      sizes[i-1] = size+2;
+      delete [] (buffer);
    		fclose (pFile);	
 		}
 	}
+  char c = 255;
+  fwrite (&c , 1 , 1, faux );
+      
+  
 	fclose(faux);
 	return sizes;
 }

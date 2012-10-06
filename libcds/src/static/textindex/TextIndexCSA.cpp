@@ -41,6 +41,10 @@ namespace cds_static{
 	size_t TextIndexCSA::count(uchar *pattern, ulong length, ulong *numocc) const{
 		return (size_t)cds_static::count(csa, pattern, length, numocc);
 	}
+
+	pair<int, int> TextIndexCSA::count(uchar *pattern, ulong length) const{
+		return cds_static::count(csa, pattern, length);
+	}
 	
 	size_t TextIndexCSA::locate (uchar *pattern, ulong length, ulong **occ, ulong *numocc) const{
 		return (size_t)cds_static::locate (csa, pattern, length, occ, numocc);

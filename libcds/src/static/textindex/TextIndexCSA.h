@@ -52,6 +52,7 @@ namespace cds_static{
 			/* Writes in numocc the number of occurrences of the substring 
 			 * pattern[0..length-1] found in the text indexed by index. */
 			virtual size_t count (uchar *pattern, ulong length, ulong *numocc) const;
+			virtual pair<int, int> count(uchar *pattern, ulong length) const;
 
 			/* Writes in numocc the number of occurrences of the substring 
 			 * pattern[0..length-1] in the text indexed by index. It also allocates

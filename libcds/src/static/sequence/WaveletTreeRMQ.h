@@ -146,7 +146,7 @@ public:
                   /** Recursive function for building the Wavelet Tree. */
                   void build_level(uint **bm, uint *symbols, uint level, uint length, uint offset);
                   void build_level(uint **bm, uint *symbols, unsigned width, uint level, uint length, uint offset);
-                  void sortWeights(uint *weight);
+                  void sortWeights(uint *weight, uint *symbols);
     };
 };
 #endif

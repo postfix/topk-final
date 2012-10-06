@@ -23,14 +23,14 @@ class DocumentArray
             this->n = vr;
             // cout << "size = " << this->n << endl;
             // cout << "vr = " << vr << endl;
-            this->doc_array = new uint[this->n];
-            for (size_t i = 0 ; i < vr;i++) {
+            this->doc_array = new uint[this->n + 1];
+            for (size_t i = 0 ; i <= vr;i++) {
                 this->doc_array[i] = 0;
             }
-            for (size_t i = 0 ; i < vr;i++) {
+            for (size_t i = 0 ; i <= vr;i++) {
                 size_t locate2 = s1->getSA(i);
                 // cout << "locate = " << locate2 << endl;
-                if (locate2 < this->n) {
+                if (locate2 <= this->n) {
 
                     // if (i % 1000 == 0 )
                     //     cout << (double)(i*1.0/vr*1.0) << endl;
@@ -52,7 +52,7 @@ class DocumentArray
         }
 
         size_t countRange(uint symbol,size_t i,size_t j) {
-            return this->doc_sequence->rank(symbol,j) - (i>0?this->doc_sequence->rank(symbol,i):0)+1;
+            return this->doc_sequence->rank(symbol,j) - (i>0?this->doc_sequence->rank(symbol,i-1):0);
         }
 
         pair<size_t, size_t> selectDocument(uint doc,size_t num) {
@@ -77,7 +77,7 @@ class DocumentArray
 
 BitSequenceRG * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
     uint sum = 0;
-    BitString *bs = new BitString(length+1);
+    BitString *bs = new BitString(length+3);
     if (random) {
         srand ( time(NULL) );
         for (int i = 0 ; i < n;i++) {

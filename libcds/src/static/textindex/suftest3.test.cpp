@@ -280,6 +280,13 @@ namespace cds_static{
 		return 0;
 	}
 
+	pair<int, int> count(void *index, uchar *pattern, ulong length){
+		int l,r,len;
+		CSA *SA=(CSA *) index;
+		len = csa_bsearch(pattern,length,SA,&l,&r);
+		return make_pair(l, r);
+	}
+
 	ulong locate_extract(void *index){
 	CSA *SA=(CSA *) index;
 	ulong largo,*occ,lar,n=SA->n,l,r,lll=0;

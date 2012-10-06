@@ -74,6 +74,7 @@ namespace cds_static{
 						pattern[0..length-1] found in the text indexed by index. */
 
 	int count (void *index, uchar *pattern, ulong length, ulong *numocc);
+	pair<int, int> count (void *index, uchar *pattern, ulong length);
 
 					/* Writes in numocc the number of occurrences of the substring 
 						pattern[0..length-1] in the text indexed by index. It also allocates
