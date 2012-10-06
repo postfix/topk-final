@@ -185,6 +185,8 @@ void Topk::generateSequence() {
                         } else {
                             cont = false;
                         }
+                        vl_p = p1l;
+                        vr_p = p1r;
                         continue;
                     }       
                     if (aux2.first == aux.first) { // if they share the same document
