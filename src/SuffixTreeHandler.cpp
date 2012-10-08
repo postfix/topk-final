@@ -9,8 +9,8 @@ class SuffixTreeHandler
         size_t size;
 
         SuffixTreeHandler(SuffixTreeY *&cst,size_t n) {
-            cout << "constructing handler " << endl;
-            cout << "size = " << n << endl;
+            // cout << "constructing handler " << endl;
+            // cout << "size = " << n << endl;
             this->cst = cst;
             this->size = n;
         }
@@ -22,10 +22,10 @@ class SuffixTreeHandler
             size_t next_vl,next_vr;
             size_t nsibling_l,nsibling_r;
 
-            cout << "adding = " << pl_aux << "," << pr_aux << endl;
-            cout << "bitmap_pos = " << bitmap_pos << endl;
-            cout << "bitmap_pos/2 = " << bitmap_pos/2 << endl;
-            cout << "size = " << result.size() << endl;
+            // cout << "adding = " << pl_aux << "," << pr_aux << endl;
+            // cout << "bitmap_pos = " << bitmap_pos << endl;
+            // cout << "bitmap_pos/2 = " << bitmap_pos/2 << endl;
+            // cout << "size = " << result.size() << endl;
             
             result.push_back(make_pair(pl_aux,pr_aux));
             bitmap_pos++; // leave a 0
@@ -53,21 +53,21 @@ class SuffixTreeHandler
             size_t a,b;
             cst->Root(&a,&b);
             generateBitmapAux(make_pair(a,b),bitmap,bitmap_pos,nodes);
-            cout << "bitmap_pos = " << bitmap_pos << endl;
+            // cout << "bitmap_pos = " << bitmap_pos << endl;
             // cout << ")";
-            cout << "nodes.size() = " << nodes.size() << endl;
+            // cout << "nodes.size() = " << nodes.size() << endl;
             BitString *new_bitmap = new BitString(bitmap->getData(),bitmap_pos);
             // for (int i = 0 ; i < nodes.size();i++) {
             //     cout << nodes[i].first << endl;
             // }
-            cout << "=========== tree ==========" << endl;
-            for (int i = 0 ;i < bitmap_pos;i++) {
-                if (bitmap->getBit(i)) 
-                    cout << ")";
-                else 
-                    cout << "(";
-            }
-            cout << endl;
+            // cout << "=========== tree ==========" << endl;
+            // for (int i = 0 ;i < bitmap_pos;i++) {
+            //     if (bitmap->getBit(i)) 
+            //         cout << ")";
+            //     else 
+            //         cout << "(";
+            // }
+            // cout << endl;
 
             return make_pair(new_bitmap,bitmap_pos);
         }

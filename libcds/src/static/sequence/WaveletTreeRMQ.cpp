@@ -231,7 +231,7 @@ namespace cds_static
             uint start = ni1;
             if (level == height) {
                 if (symb >= j1 && symb <= j2) {
-                    cout << "symb is " << symb << " j1 = " << j1 << " j2 = " << j2 << endl;
+                //    cout << "symb is " << symb << " j1 = " << j1 << " j2 = " << j2 << endl;
                     uint m = rmq[level]->query(start+i1,start+i2);
                     RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,j1,j2,this->last_weight->access(m+1),m,level,symb,m,ni1,ni2);
                     ranges.push(ri);
@@ -246,7 +246,7 @@ namespace cds_static
                 size_t start_aux=ni1;
                 size_t end = ni2;
                 while(lev<height) {
-                    cout << "entered here!" << endl;
+                   // cout << "entered here!" << endl;
                     if(!(pos>=start_aux && pos<=end)) return;
                     if(bitstring[lev]->access(pos)) {
                         ret |= (1 << (height - lev - 1));
@@ -264,7 +264,7 @@ namespace cds_static
                     lev++;
                 }
             if (ret >= j1 && ret <= j2 ) {
-                cout << "ret is " << ret << " j1 = " << j1 << " j2 = " << j2 << endl;
+              //  cout << "ret is " << ret << " j1 = " << j1 << " j2 = " << j2 << endl;
                  RangeInfo *ri = new RangeInfo(ni1+i1,ni1+i2,j1,j2,this->last_weight->access(pos+1),pos,level,symb,m,ni1,ni2);
                  ranges.push(ri);
             }
@@ -313,7 +313,7 @@ namespace cds_static
         while (!ranges.empty() && count < k) {
             RangeInfo *r = ranges.top();
             ranges.pop();
-            cout << "Adding position " << r->pos << " weight = " << r->w << endl;
+            //cout << "Adding position " << r->pos << " weight = " << r->w << endl;
             if (r->w != 0) {
                 res.push(new TopkResult(r->w,r->pos));
                 count ++;
@@ -324,9 +324,9 @@ namespace cds_static
            // if (r->level == height) continue;
             //if (r->levelpos == 0)  continue; 
             if (r->level == height) {
-                if (r->x1 < r->levelpos-1 && r->levelpos != 0) {
+                if (r->x1 <= r->levelpos-1 && r->levelpos != 0) {
                     if (r->sym >= r->y1 && r->sym <= r->y2) {
-                        cout << "ret1 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                      //  cout << "ret1 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
 
                         uint m = rmq[r->level]->query(r->x1,r->levelpos-1);
                         RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
@@ -335,9 +335,9 @@ namespace cds_static
                     continue;
 
                 } 
-                if (r->levelpos+1 < r->x2 ) {
+                if (r->levelpos+1 <= r->x2 ) {
                     if (r->sym >= r->y1 && r->sym <= r->y2) {
-                        cout << "ret2 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                    //    cout << "ret2 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
                         uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
                         RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
                         ranges.push(ri);
@@ -370,13 +370,13 @@ namespace cds_static
                     lev++;
                 }
                 if (ret >= r->y1 && ret <= r->y2 ) {
-                    cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                //    cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
 
                     RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
                     ranges.push(ri);
                 }
             }
-            if (r->levelpos+1 < r->x2 ) {
+            if (r->levelpos+1 <= r->x2 ) {
                 uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
                 uint pos = m;
                 uint ret = r->sym;
@@ -401,7 +401,7 @@ namespace cds_static
                     lev++;
                 }
                 if (ret >= r->y1 && ret <= r->y2 ) {
-                    cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
+                   // cout << "ret is " << ret << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
                     RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
                     ranges.push(ri);
                 }  
@@ -655,7 +655,7 @@ namespace cds_static
             size_t w_left = 0;
             size_t w_right = 0;
 
-            cout << " ini = " << ini << " fin = " << fin << " n = " << n << endl;
+          //  cout << " ini = " << ini << " fin = " << fin << " n = " << n << endl;
 
             for (size_t k = ini ; k < fin ; k++) {
                 if (bitstring[i]->access(k)) {
@@ -704,7 +704,7 @@ namespace cds_static
                 ranges.push(make_pair(ini+pos_left, fin));
 
             if (fin == n) {
-                cout << "level = " << i << "of " << height << endl;
+           //     cout << "level = " << i << "of " << height << endl;
                 i ++;
                 rmq[i] = new RMQ((int*)weight, n);
             }
@@ -714,10 +714,10 @@ namespace cds_static
             delete [] symbols_aux_left;
             delete [] symbols_aux_right;
         }
-        for (size_t i = 0; i < n - 1; i++) {
-            cout << symbols[i] << " " << symbols[i+1] << endl;
-            assert(symbols[i] <= symbols[i+1]);
-        }
+        // for (size_t i = 0; i < n - 1; i++) {
+        //     cout << symbols[i] << " " << symbols[i+1] << endl;
+        //     assert(symbols[i] <= symbols[i+1]);
+        // }
         this->last_weight = new factorization(weight,n);
     }
 

@@ -14,6 +14,7 @@
 //#include <RMQ_succinct.h>
 #include <factorization.h>
 //#include <timing.h>
+// #include <time.h>
 
 #include <WaveletTreeRMQ.h>
 #include <tree_ff.h>

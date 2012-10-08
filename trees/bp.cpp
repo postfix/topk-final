@@ -287,7 +287,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   mymalloc(b->da,1,0);
   darray_construct(b->da,n,B, opt & OPT_FAST_PREORDER_SELECT);
   b->idx_size += b->da->idx_size;
-  printf("preorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da->idx_size,(double)b->da->idx_size*8/n);
+  // printf("preorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da->idx_size,(double)b->da->idx_size*8/n);
 
   make_matchtbl();
 
@@ -299,9 +299,9 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_DEGREE) {
     mymalloc(sd, ns, 0);  b->idx_size += ns * sizeof(*sd);
     b->sd = sd;
-    printf("SB degree table: %d bytes (%1.2f bpc)\n",(int)ns * sizeof(*sd), (double)ns * sizeof(*sd) * 8/n);
+    // printf("SB degree table: %d bytes (%1.2f bpc)\n",(int)ns * sizeof(*sd), (double)ns * sizeof(*sd) * 8/n);
   }
-  printf("SB table: %d bytes (%1.2f bpc)\n",(int)ns * sizeof(*sm) * 2, (double)ns * sizeof(*sm)*2 * 8/n);
+  // printf("SB table: %d bytes (%1.2f bpc)\n",(int)ns * sizeof(*sm) * 2, (double)ns * sizeof(*sm)*2 * 8/n);
 
   for (i=0; i<n; i++) {
     if (i % SB == 0) {
@@ -349,9 +349,9 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_DEGREE) {
     mymalloc(md, nm + m_ofs, 0);  b->idx_size += (nm+m_ofs) * sizeof(*md);
     b->md = md;
-    printf("MB degree table: %d bytes (%1.2f bpc)\n",(int)(nm+m_ofs) * sizeof(*md), (double)(nm+m_ofs) * sizeof(*md) * 8/n);
+    // printf("MB degree table: %d bytes (%1.2f bpc)\n",(int)(nm+m_ofs) * sizeof(*md), (double)(nm+m_ofs) * sizeof(*md) * 8/n);
   }
-  printf("MB table: %d bytes (%1.2f bpc)\n",(int)(nm+m_ofs) * sizeof(*mm) * 2, (double)(nm+m_ofs) * sizeof(*mm)*2 * 8/n);
+  // printf("MB table: %d bytes (%1.2f bpc)\n",(int)(nm+m_ofs) * sizeof(*mm) * 2, (double)(nm+m_ofs) * sizeof(*mm)*2 * 8/n);
 
   for (i=0; i<n; i++) {
     d = depth(b,i);
@@ -410,7 +410,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_LEAF) {
     mymalloc(b->da_leaf,1,0);
     darray_pat_construct(b->da_leaf, n, B, 2, 0x2, opt & OPT_FAST_LEAF_SELECT);
-    printf("leaf rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_leaf->idx_size,(double)b->da_leaf->idx_size*8/n);
+    // printf("leaf rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_leaf->idx_size,(double)b->da_leaf->idx_size*8/n);
     b->idx_size += b->da_leaf->idx_size;  
   } else {
     b->da_leaf = NULL;
@@ -419,7 +419,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_INORDER) {
     mymalloc(b->da_inorder,1,0);
     darray_pat_construct(b->da_inorder, n, B, 2, 0x1, opt & OPT_FAST_INORDER_SELECT);
-    printf("inorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_inorder->idx_size,(double)b->da_inorder->idx_size*8/n);
+    // printf("inorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_inorder->idx_size,(double)b->da_inorder->idx_size*8/n);
     b->idx_size += b->da_inorder->idx_size;
   } else {
     b->da_inorder = NULL;
@@ -428,7 +428,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_FAST_POSTORDER_SELECT) {
     mymalloc(b->da_postorder,1,0);
     darray_pat_construct(b->da_postorder, n, B, 1, 0x0, (opt & OPT_FAST_POSTORDER_SELECT) | OPT_NO_RANK);
-    printf("postorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_postorder->idx_size,(double)b->da_postorder->idx_size*8/n);
+    // printf("postorder rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_postorder->idx_size,(double)b->da_postorder->idx_size*8/n);
     b->idx_size += b->da_postorder->idx_size;
   } else {
     b->da_postorder = NULL;
@@ -437,7 +437,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
   if (opt & OPT_DFUDS_LEAF) {
     mymalloc(b->da_dfuds_leaf,1,0);
     darray_pat_construct(b->da_dfuds_leaf, n, B, 2, 0x0, opt & OPT_FAST_DFUDS_LEAF_SELECT);
-    printf("dfuds leaf rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_dfuds_leaf->idx_size,(double)b->da_dfuds_leaf->idx_size*8/n);
+    // printf("dfuds leaf rank/select table: %d bytes (%1.2f bpc)\n",(int)b->da_dfuds_leaf->idx_size,(double)b->da_dfuds_leaf->idx_size*8/n);
     b->idx_size += b->da_dfuds_leaf->idx_size;
   } else {
     b->da_dfuds_leaf = NULL;
@@ -458,7 +458,7 @@ i64 bp_construct(bp *b,i64 n, pb *B, i64 opt)
 	rmq_tbl[j*nm + i] = rmq(b,s,t,0);
       }
     }
-    printf("fast_lca table: %d bytes (%1.2f bpc)\n",(int)(nm*h*sizeof(*rmq_tbl)),(double)nm*h*sizeof(*rmq_tbl)*8/n);
+    // printf("fast_lca table: %d bytes (%1.2f bpc)\n",(int)(nm*h*sizeof(*rmq_tbl)),(double)nm*h*sizeof(*rmq_tbl)*8/n);
     b->opt |= OPT_FAST_LCA;
   }
 

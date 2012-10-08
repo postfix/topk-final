@@ -45,7 +45,7 @@ class DocumentArray
             MapperNone * map = new MapperNone();
             BitSequenceBuilder * bsb = new BitSequenceBuilderRG(20);
             this->doc_sequence = new WaveletTreeNoptrs(*A, bsb, map);
-            cout << "end!" << endl;
+            // cout << "end!" << endl;
             delete A;
             //delete map;
             //delete bsb;

@@ -4,7 +4,7 @@
 #include <TextIndex.h>
 #include <SuffixTree.h>
 #include <algorithm>
-
+#include <time.h>
 #define pivot_index() (begin+(end-begin)/2)
 #define swap_rkonow(a,b,t) ((t)=(a),(a)=(b),(b)=(t))
 
@@ -84,7 +84,7 @@ size_t *mergeFiles(vector<string> files, size_t n)
 		char * buffer;
     size_t result;
 
-    cout << "reading " << files[i-1] << endl;
+ //   cout << "reading " << files[i-1] << endl;
 		pFile = fopen(files[i-1].c_str(),"rb");
 		if (pFile==NULL) perror ("file");
 		else
@@ -97,10 +97,10 @@ size_t *mergeFiles(vector<string> files, size_t n)
  			if (buffer == NULL) {fputs ("Memory error",stderr); exit (2); }
  			result = fread (buffer,1,size,pFile);
       //buffer[size] = 0;
- 			cout << " size is = " << size << endl;
- 			cout << " size of buffer = " << sizeof(buffer) << endl;
+ 			// cout << " size is = " << size << endl;
+ 			// cout << " size of buffer = " << sizeof(buffer) << endl;
   		if (result != size) {fputs ("Reading error",stderr); exit (3);}
-		  printf ("Size of file %i ,  %ld bytes.\n",i,size);
+		  // printf ("Size of file %i ,  %ld bytes.\n",i,size);
 			fwrite (buffer , 1 , size, faux );
       char c = 0;
       fwrite (&c , 1 , 1, faux );
@@ -118,4 +118,11 @@ size_t *mergeFiles(vector<string> files, size_t n)
 	fclose(faux);
 	return sizes;
 }
+
+double diffclock(clock_t clock1,clock_t clock2)
+{
+  double diffticks=clock1-clock2;
+  double diffms=(diffticks*1000)/CLOCKS_PER_SEC;
+  return diffms;
+} 
 #endif

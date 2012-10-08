@@ -42,7 +42,7 @@ bp_hb::bp_hb(uint *string, uint length, uint block_size, bool bwd){
 	nbits = bits(n-1);
 	s = nbits*b;
 	sbits = bits(s-1);
-	cout << "near limit: " << (1<<sbits) << endl;
+	//cout << "near limit: " << (1<<sbits) << endl;
 	s = 1 << sbits; // to take the most advantage of what we can represent
 	near = far = pnear = pfar = 0;
 	calcsizes(~0,0,&near,&far,&pnear,&pfar);
@@ -414,7 +414,7 @@ uint bp_hb::size(){
 	mem += open_bbtable->sizeofHash(); 
 	mem += 2*sizeof(byte)*256*W/2;
 	mem += sizeof(char)*256;
-	cout << "mem = " << mem << endl;
+//	cout << "mem = " << mem << endl;
 	return mem;
 }
 

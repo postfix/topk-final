@@ -48,15 +48,15 @@ bp_rp::bp_rp(uint *bitarray, int ba_size, int block_size){
 	uint *P_aux, *S2_aux, *P2_aux;
 	S1_size = ba_size;
 	b = block_size; 
-	cout << "Block Size: " << b << endl;
-	cout << "Size lvl1: " << S1_size << endl;
+	// cout << "Block Size: " << b << endl;
+	// cout << "Size lvl1: " << S1_size << endl;
 	S1 = new static_bitsequence_brw32(S_aux, ba_size, 20);
 	/*create P (find the pionners and their answers)*/
 	create_P(&P_aux, S_aux, ba_size);
 	P1 = new static_bitsequence_rrr02(P_aux, ba_size);
 	/*create S2*/
 	S2_size = (int)P1->rank1(ba_size-1);
-	cout << "Size lvl2: " << S2_size << endl;
+	// cout << "Size lvl2: " << S2_size << endl;
 	create_S2(&S2_aux);
 	S2 = new static_bitsequence_brw32(S2_aux, S2_size, 20);
 	/*create P2*/
@@ -65,7 +65,7 @@ bp_rp::bp_rp(uint *bitarray, int ba_size, int block_size){
 	//P2 = new static_bitsequence_rrr02(P2_aux, S2_size);
 	/*create last level*/
 	lvl3_size = (int)P2->rank1(S2_size-1);
-	cout << "Size lvl3: " << lvl3_size << endl;
+	// cout << "Size lvl3: " << lvl3_size << endl;
 	calculate_lvl3();	
 	/*create Tables*/
 	Table_max_closers = new uint[(bits(8)*(1<<8)+W-1)/W];
@@ -605,18 +605,18 @@ int bp_rp::enclose_prima(int v){
 uint bp_rp::size(){
 	uint mem = sizeof(bp_rp);
 	mem += S1->size();
-	cout << "S: " << S1->size() << " bytes" << endl;
+	// cout << "S: " << S1->size() << " bytes" << endl;
 	mem += P1->size();
-	cout << "P: " << P1->size() << " bytes" << endl;
+	// cout << "P: " << P1->size() << " bytes" << endl;
 	mem += S2->size();
-	cout << "S2: " << S2->size() << " bytes" << endl;
+	// cout << "S2: " << S2->size() << " bytes" << endl;
 	mem += P2->size();
-	cout << "P2: " << P2->size() << " bytes" << endl;
+	// cout << "P2: " << P2->size() << " bytes" << endl;
 	mem += sizeof(uint)*2*((bits(8)*(1<<8)+W-1)/W);
 	mem += sizeof(uint)*((bits(16)*(1<<8)+W-1)/W);
-	cout << "Tables: " <<  sizeof(uint)*(2*((bits(8)*(1<<8)+W-1)/W)+(bits(16)*(1<<8)+W-1)/W) << " bytes" << endl;
+	// cout << "Tables: " <<  sizeof(uint)*(2*((bits(8)*(1<<8)+W-1)/W)+(bits(16)*(1<<8)+W-1)/W) << " bytes" << endl;
 	mem += sizeof(uint)*2*((lvl3_size*b_lvl3+W-1)/W);
-	cout << "lvl3: " << sizeof(uint)*2*((lvl3_size*b_lvl3+W-1)/W) << " bytes" << endl;
+	// cout << "lvl3: " << sizeof(uint)*2*((lvl3_size*b_lvl3+W-1)/W) << " bytes" << endl;
 	return mem;
 }
 

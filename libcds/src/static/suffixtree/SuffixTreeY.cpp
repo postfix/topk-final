@@ -31,10 +31,10 @@ namespace cds_static{
 
 	SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type, size_t b){
 		length = n;
-		cout << "Text length: " << n << endl;
+		// cout << "Text length: " << n << endl;
 		/*create the index*/
 		csa = new TextIndexCSA((uchar *)text, (ulong)length, NULL);
-		cout << "TextIndex bits/c: " << csa->getSize()*8.0/length << endl;
+		// cout << "TextIndex bits/c: " << csa->getSize()*8.0/length << endl;
 		switch(lcp_type) {
 			case NAIVE: lcp = new LCP_naive(csa, text, length); break;
 			case SAD_GON_OS: lcp = new LCP_Sad(csa, text, length); break;
@@ -45,23 +45,23 @@ namespace cds_static{
 			case DAC_VAR: lcp = new LCP_DAC_VAR(csa, text,length); break;
 			default: exit(0);
 		}
-		cout << "LCP bits/c: " << lcp->getSize()*8.0/length << endl;
+		// cout << "LCP bits/c: " << lcp->getSize()*8.0/length << endl;
 		switch(npr_type){
 			case FMN_NPR: npr = new NPR_FMN(lcp, b, csa); break;
 			case CN_NPR: npr = new NPR_CN(lcp, b, csa); break;
 			default: exit(0);
 		}
-		cout << "NPR bits/c: " << npr->getSize()*8.0/length << endl;
+		// cout << "NPR bits/c: " << npr->getSize()*8.0/length << endl;
 		/*here you can free the text*/
 	}
 
 	SuffixTreeY::SuffixTreeY(LCP *_lcp, NPR *_npr, TextIndex *_csa){
 		csa = _csa;
-		cout << "TextIndex bits/c: " << csa->getSize()*8.0/length << endl;
+		// cout << "TextIndex bits/c: " << csa->getSize()*8.0/length << endl;
 		lcp = _lcp;
-		cout << "LCP bits/c: " << lcp->getSize()*8.0/length << endl;
+		// cout << "LCP bits/c: " << lcp->getSize()*8.0/length << endl;
 		npr = _npr;
-		cout << "NPR bits/c: " << npr->getSize()*8.0/length << endl;
+		// cout << "NPR bits/c: " << npr->getSize()*8.0/length << endl;
 	}
 
 	bool SuffixTreeY::isRoot(size_t vl,size_t vr) const{

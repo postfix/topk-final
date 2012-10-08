@@ -12,7 +12,8 @@ RMQ::RMQ(int *A,size_t n)
 	this->n = n ;
 	this->bitmap = buildrmq(A,n);
 	this->t = new tree_ff(this->bitmap,2*(n+1)+W2-1,OPT_FAST_LCA | OPT_FAST_PREORDER_SELECT | OPT_FAST_LEAF_SELECT);
-	cout << "n = " << n << endl;
+	//cout << "n = " << n << endl;
+	//delete[] A;
 	//delete[] A;
 }
 
@@ -20,6 +21,7 @@ RMQ::~RMQ()
 {
 		free(this->bitmap);
 		delete this->t;
+		//delete 
 }
 
 
@@ -37,7 +39,7 @@ unsigned int RMQ::query(size_t i,size_t j)
 
 size_t RMQ::getSize()
 {
-	cout << "rmq size = " << this->t->size() << endl;
+	//cout << "rmq size = " << this->t->size() << endl;
 	return this->t->size();
 }
 

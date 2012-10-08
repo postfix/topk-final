@@ -80,7 +80,7 @@ uint bp_rmm::enclose(int v){
 
 uint bp_rmm::size(){
 	uint mem = b1.idx_size;
-	cout << "mem2 = " << mem << endl;
+	//cout << "mem2 = " << mem << endl;
 	return mem;
 }
 
