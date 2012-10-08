@@ -58,7 +58,7 @@ void Topk::fillLinkList(uint num_files) {
         // Retrieve the positions of document i-1 in position pos+1 and pos+2.
         pair<size_t, size_t> pairc = da->selectDocument(i-1,pos+1);
         count++;
-        cout << "node = " << pairc.first << "," << pairc.second << ", count = " << count << endl;
+       // cout << "node = " << pairc.first << "," << pairc.second << ", count = " << count << endl;
         while(pairc.first <= this->length+1 && pairc.second <= this->length+1) {
             size_t vl_lca,vr_lca;
             // obtain the LCA of both of them
@@ -77,7 +77,7 @@ void Topk::fillLinkList(uint num_files) {
             // the document that corresponds
             // the frequency for that node and document.
             this->ll->insert(this->t->Preorder_Rank(lca)-1,i-1,da->countRange(i-1,vl_lca,vr_lca));
-            cout << "inserting node = " << this->t->Preorder_Rank(lca) << " doc = " << i-1 << " with freq = " << da->countRange(i-1,vl_lca,vr_lca) << endl;
+        //    cout << "inserting node = " << this->t->Preorder_Rank(lca) << " doc = " << i-1 << " with freq = " << da->countRange(i-1,vl_lca,vr_lca) << endl;
             pos++;
             pairc = this->da->selectDocument(i-1,pos+1);
             count++;
@@ -111,15 +111,15 @@ void Topk::generateSequence() {
         pair<uint,uint> aux_node = this->preorder_vector[i];
         cout << aux_node.first << ", " << aux_node.second << endl;
         if (aux_node.first == aux_node.second) {
-            cout << "found leaf on node = " << i << endl;
+        //    cout << "found leaf on node = " << i << endl;
             // cout << "current pos = " << pointersize+docs_node << endl;
             map_leaf->setBit(i);
             bsleaf->setBit(i+depth_sequence.size());
             uint node = this->t->Preorden_Select(nodes_preorder[make_pair(aux_node.first,aux_node.second)]);
             size_t tdepth = cst->TDepth(aux_node.first,aux_node.second);
-            cout << "tdepth 1 = " << tdepth << endl;
+          //  cout << "tdepth 1 = " << tdepth << endl;
             uint tdepth2 = this->t->Depth(node);
-            cout << "tdepth 2 = " << tdepth2 << endl;
+          //  cout << "tdepth 2 = " << tdepth2 << endl;
             depth_sequence.push_back(tdepth2);
             frequencies.push_back(1);
             this->documents.push_back(this->da->doc_array[aux_node.first]);
@@ -141,7 +141,7 @@ void Topk::generateSequence() {
             vr = node_aux.second;
             bool cont = true;
             while(cont) {
-                cout << "entered with node = " << i << endl;
+            //    cout << "entered with node = " << i << endl;
                 cst->Parent(vl,vr,&vl_p,&vr_p);
                 // level++;
                 // there is NO parent with a higher frequency...
@@ -162,7 +162,7 @@ void Topk::generateSequence() {
                         cont = false;
                         break;
                     } else {
-                        cout << "Damn, node " << i << " has no parent" << endl;
+              //          cout << "Damn, node " << i << " has no parent" << endl;
                         cont = false;
                         break;
                     }
@@ -174,8 +174,8 @@ void Topk::generateSequence() {
                 // while(aux2.second != (uint)-1 && aux2.first != (uint)-1 && cont == true) {
                 while(cont == true) {
                     if (aux2.first == (uint)-1) {
-                        cout << "aux2.first = " << aux2.first << " aux2.first = " << aux2.first;
-                        cout << " vl_p = " << vl_p << " vr_p = " << vr_p << " l = " << l << endl; 
+                //        cout << "aux2.first = " << aux2.first << " aux2.first = " << aux2.first;
+                  //      cout << " vl_p = " << vl_p << " vr_p = " << vr_p << " l = " << l << endl; 
                     
                         l = 0;
                         size_t p1r, p1l;
@@ -190,9 +190,9 @@ void Topk::generateSequence() {
                         continue;
                     }       
                     if (aux2.first == aux.first) { // if they share the same document
-                        if (i == 61) {
-                            cout << "aux.second = " << aux.second << " aux2.second = " << aux2.second << endl;
-                        }
+                    //    if (i == 61) {
+                      //      cout << "aux.second = " << aux.second << " aux2.second = " << aux2.second << endl;
+                       // }
                         if (aux2.second >= aux.second) { // if the frequency of the parent is higher
                             uint parent = this->t->Parent(this->t->Preorden_Select(this->nodes_preorder[make_pair(vl,vr)]+1));
                             size_t tdepth = this->t->Depth(parent); // calculate the tree depth
@@ -255,9 +255,9 @@ void Topk::generateSequence() {
     for (size_t i = 0 ; i < depth_sequence.size();i++) {
          depth_sequence_array[i] = depth_sequence[i];
 	 this->freq_array[i] = frequencies[i];
-	 if(this->max_freq <= frequencies[i]); {
-        cout << "wtf! max_freq = " << this->max_freq << " vs freq[" << i << "] = " << frequencies[i] << endl;
-     }
+//	 if(this->max_freq <= frequencies[i]); {
+     //   cout << "wtf! max_freq = " << this->max_freq << " vs freq[" << i << "] = " << frequencies[i] << endl;
+  //   }
 	 norm_weight[i] = this->max_freq - frequencies[i];
     }
     cout << "done!" << endl;
@@ -285,10 +285,10 @@ void Topk::generateSequence() {
     assert(documents.size() == depth_sequence.size());
     sort(this->gd_sequence,this->freq_array,document_array,depth_sequence.size());
     cout << "Done!" << endl;
-     for (int i = 0 ; i < this->pointer_size;i++ )
-     {
-         cout << "| " << i << " | " << gd_sequence[i] << " | " <<  this->freq_array[i] << " | " << document_array[i] << endl;
-     }
+    // for (int i = 0 ; i < this->pointer_size;i++ )
+    // {
+     //    cout << "| " << i << " | " << gd_sequence[i] << " | " <<  this->freq_array[i] << " | " << document_array[i] << endl;
+    // }
     this->doc_array = new Array(document_array,this->pointer_size);
     this->freq_dacs = new factorization(this->freq_array,this->pointer_size);
 
@@ -302,9 +302,9 @@ void Topk::generateSequence() {
     for (int i = 0; i < A->getLength(); i++)
         assert(A->getField(i) == d_sequence->access(i));
 
-    for (int i = 0; i < A->getLength(); i++) {
-        cout << i << " " << ((this->max_freq - norm_weight[i]) == (this->freq_array[i])) << " " << gd_sequence[i] << " " << (this->max_freq - norm_weight[i]) << " " << (this->freq_array[i]) << endl;
-    }
+  //  for (int i = 0; i < A->getLength(); i++) {
+  //      cout << i << " " << ((this->max_freq - norm_weight[i]) == (this->freq_array[i])) << " " << gd_sequence[i] << " " << (this->max_freq - norm_weight[i]) << " " << (this->freq_array[i]) << endl;
+  //  }
     
     // delete A;
     // delete []norm_weight;
@@ -431,8 +431,8 @@ double Topk::query(uchar *q,uint size_q) {
         cout << "v[" << i << "].weight = " << this->max_freq - v[i].first << endl;
         cout << "v[" << i << "].pos = " << v[i].second << endl;
         cout << "v[" << i << "].doc = " << this->doc_array->getField(v[i].second) << endl;
-        cout << "v[" << i << "].weight' = " << this->freq_array[v[i].second] << endl;
-        cout << "v[" << i << "].depth' = " << this->gd_sequence[v[i].second] << endl;
+    //    cout << "v[" << i << "].weight' = " << this->freq_array[v[i].second] << endl;
+    //    cout << "v[" << i << "].depth' = " << this->gd_sequence[v[i].second] << endl;
     }
 
     double total_time = 1.0000000;
