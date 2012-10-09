@@ -133,12 +133,12 @@ void Topk::generateSequence() {
         pair<uint,uint> aux = this->ll->getValue(i,k);
         pair<uint,uint> node_aux = preorder_vector[i];
 
-        while(aux.second != (uint)-1) {
+        bool cont = true;
+        while(aux.second != (uint)-1 && cont == true) {
             uint level = 0;
             size_t vl,vr;
             vl = node_aux.first;
             vr = node_aux.second;
-            bool cont = true;
             while(cont) {
             //    cout << "entered with node = " << i << endl;
                 cst->Parent(vl,vr,&vl_p,&vr_p);
@@ -146,8 +146,8 @@ void Topk::generateSequence() {
                 // there is NO parent with a higher frequency...
                 if (vl_p == (size_t)-1 || vr_p == (size_t)-1) {
                     if(i == 0) {
-                        // cout << "Damn, node " << i << " has no parent" << endl;
                         uint l = 0;
+                        cout << "Damn, node " << i << " has no parent" << " document = " << l <<  endl;
                         pair<uint,uint> aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
                         while(aux2.second != (uint)-1 && aux.first != (uint)-1 && cont == true) {
                             this->documents.push_back(aux.first);
@@ -206,7 +206,7 @@ void Topk::generateSequence() {
                                 this->max_freq = aux.second; 
 
                             cont = false;
-                         //   break;
+                            break;
                         }
                     }
                     l++; // move to the next document
@@ -387,7 +387,7 @@ Topk::~Topk() {
     delete this->d_sequence;
     //delete[] this->gd_sequence;
     delete this->t;
-    delete []this->d_array;
+    //delete []this->d_array;
     delete this->freq_dacs;
     delete this->bitsequence_leaf;
     delete this->bitsequence_map;

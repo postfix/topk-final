@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
             result += tk->query(queries[i],qreal[i].length());      
         }
 
-        cout << qreal[0].length() << "\t" << result << endl;
+        cout << qreal[0].length() << "\t" << (double)(result*1.00/(qreal.size()*1.00)) << endl;
         // for (int i = 0 ; i < qreal.size()-1;i++)
         //     free(queries[i]);
        //delete [] queries;
