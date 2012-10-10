@@ -4,7 +4,8 @@
 #include <TextIndex.h>
 #include <SuffixTree.h>
 #include <algorithm>
-#include <time.h>
+//#include <time.h>
+#include <sys/time.h>
 #define pivot_index() (begin+(end-begin)/2)
 #define swap_rkonow(a,b,t) ((t)=(a),(a)=(b),(b)=(t))
 
@@ -155,10 +156,50 @@ vector<string> generateQueries(char *file, int length, int num) {
 
 }
 
-double diffclock(clock_t clock1,clock_t clock2)
-{
-  double diffticks=clock1-clock2;
-  double diffms=(long double)((double)(diffticks*1000.0000)/(double)(CLOCKS_PER_SEC+0.0000));
-  return diffms;
-} 
+
+
+
+class Timer {
+  public:
+    /** Creates and starts the timer.
+     */
+    Timer() {
+      Restart();
+    }
+
+    /** Restarts the timer.
+     */
+    void Restart() {
+      getrusage(RUSAGE_SELF, &ru);
+      initial_ru = ru.ru_utime;
+      gettimeofday(&initial, NULL);
+    }
+
+    /** Stops the timer.
+     */
+    void Stop() {
+      getrusage(RUSAGE_SELF, &ru);
+      final_ru = ru.ru_utime;
+      gettimeofday(&final, NULL);
+    }
+
+    /** Computes the number of microsecond elapsed from start to stop
+     * This time is for wall-clock time
+     */
+    double ElapsedTime() {
+      return (final.tv_sec - initial.tv_sec) * 1000000 + (final.tv_usec - initial.tv_usec);
+    }
+
+    /** Computes the number of microsecond elapsed from start to stop
+    * This time is for  process CPU usage
+    */
+    double ElapsedTimeCPU() {
+      return (final_ru.tv_sec - initial_ru.tv_sec) * 1000000 + (final_ru.tv_usec - initial_ru.tv_usec);
+    }
+
+  protected:
+    struct timeval initial, final;
+    struct timeval initial_ru, final_ru;
+    struct rusage ru;
+};
 #endif
