@@ -317,15 +317,15 @@ namespace cds_static
             if (r->w != 0) {
                 res.push(new TopkResult(r->w,r->pos));
                 count ++;
-                continue;
-            }
+//                continue;
+            } else { continue; } 
             // if (r->levelpos-1 == r->x1) continue;
             // if (r->levelpos+1 == r->x2) continue;
            // if (r->level == height) continue;
             //if (r->levelpos == 0)  continue; 
             if (r->level == height) {
-                if (r->x1 <= r->levelpos-1 && r->levelpos != 0) {
-                    if (r->sym >= r->y1 && r->sym <= r->y2) {
+                if (r->x1 < r->levelpos-1 && r->levelpos != 0) {
+	           if (r->sym >= r->y1 && r->sym <= r->y2) {
                       //  cout << "ret1 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
 
                         uint m = rmq[r->level]->query(r->x1,r->levelpos-1);
@@ -335,13 +335,13 @@ namespace cds_static
                     continue;
 
                 } 
-                if (r->levelpos+1 <= r->x2 ) {
+                if (r->levelpos+1 < r->x2 ) {
                     if (r->sym >= r->y1 && r->sym <= r->y2) {
                     //    cout << "ret2 is " << r->sym << " j1 = " << r->y1 << " j2 = " << r->y2 << endl;
                         uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
                         RangeInfo *ri = new RangeInfo(r->levelpos+1,r->x2,r->y1,r->y2,this->last_weight->access(m+1),m,r->level,r->sym,m,r->startx,r->endx);
                         ranges.push(ri);
-                    }
+                  }
                     continue;
                 }  
             } 
@@ -374,9 +374,9 @@ namespace cds_static
 
                     RangeInfo *ri = new RangeInfo(r->x1,r->levelpos-1,r->y1,r->y2,this->last_weight->access(pos+1),pos,r->level,r->sym,m,r->startx,r->endx);
                     ranges.push(ri);
-                }
+               }
             }
-            if (r->levelpos+1 <= r->x2 ) {
+            if (r->levelpos+1 < r->x2 ) {
                 uint m = rmq[r->level]->query(r->levelpos+1,r->x2);
                 uint pos = m;
                 uint ret = r->sym;

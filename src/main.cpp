@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     char file[] = "merged";
     vector<vector<string> > general_queries;
     for (int i = 1 ; i < 10;i++) {
-        vector<string> queries = generateQueries(file,i,10);
+        vector<string> queries = generateQueries(file,i,4000);
         general_queries.push_back(queries);
     }
     
@@ -49,11 +49,11 @@ int main(int argc, char *argv[]) {
           // cout << "query[" << i << "] = " << queries[j] << endl;
             pair<double,double> result;
         	result = tk->query(queries[j],qreal[0].length());      
-     	    if (result.first != 0) {
+     	    if ((int)(result.first) != (int)(0)) {
      	       time_wt += result.first*1.0000;
                count_wt++;
     	    }
-    	    if (result.second != 0) { 
+    	    if ((int)(result.second) != (int)(0)) { 
                 time_csa += result.second*1.0000;
                 count_csa++;
     	    }
