@@ -119,10 +119,46 @@ size_t *mergeFiles(vector<string> files, size_t n)
 	return sizes;
 }
 
+vector<string> generateQueries(char *file, int length, int num) {
+  vector<string> result;
+  ifstream fs;
+  int total_length = 0;
+  fs.open(file,ios::binary);
+  fs.seekg(0,ios::end);
+  total_length = fs.tellg();
+  fs.seekg(0,ios::beg);  
+  int count = 0;
+  while(count < num) {
+    char *buffer = new char[length+1];
+    int pos = rand()%(total_length-length-10);
+    //cout << "pos  "  << pos << endl;
+    fs.seekg(pos);
+    fs.read(buffer,length);
+    bool next = false;
+    for (int i = 0 ; i < length;i++ ) {
+      if (buffer[i] == '\n' || buffer[i] < 10 || buffer[i] > 127) {
+        next = true;
+        delete[] buffer;
+        break;
+      }
+    }
+    if (next == true) 
+      continue;
+
+    buffer[length] = '\0';
+    count++;
+    string s(buffer);
+    cout << "adding s=" << s << endl;
+    result.push_back(s);
+  }
+  return result;
+
+}
+
 double diffclock(clock_t clock1,clock_t clock2)
 {
   double diffticks=clock1-clock2;
-  double diffms=(diffticks*1000)/CLOCKS_PER_SEC;
+  double diffms=(long double)((double)(diffticks*1000.0000)/(double)(CLOCKS_PER_SEC+0.0000));
   return diffms;
 } 
 #endif

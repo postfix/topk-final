@@ -377,6 +377,9 @@ pair<double,double> Topk::query(uchar *q,uint size_q) {
     // //    cout << "v[" << i << "].depth' = " << this->gd_sequence[v[i].second] << endl;
     // }
     clock_t end=clock();
+    cout << "begin = " << (long double)(begin+0.000) << endl;
+    cout << "end = " << end << endl;
+    cout << "divisible = " << (long double)(long double)((long double)end+0.000-(long double)begin+0.0000)/(long double)(CLOCKS_PER_SEC+0.0000);
     return make_pair(double(diffclock(end,begin_wt)*1.000),double(diffclock(end,begin)*1.000));
 }
 
