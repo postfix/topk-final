@@ -315,13 +315,14 @@ void Topk::generateSequence() {
   //  cout << "Done! " << endl;
 }
 
-double Topk::query(uchar *q,uint size_q) {
+pair<double,double> Topk::query(uchar *q,uint size_q) {
     //cout << "recevied query:" << q << " of length  = " << size_q << endl;
     clock_t begin=clock();
+    clock_t begin_wt=clock();
     pair<int, int> posn = ticsa->count(q,size_q);
     if (posn.second - posn.first + 1 == 0) {
         clock_t end=clock();
-        return double(diffclock(end,begin));
+        return make_pair(0.000,double(diffclock(end,begin)));
     }
   //   cout << "numocc = " << posn.second - posn.first + 1 << endl;
     size_t start_range = posn.first;
@@ -333,7 +334,7 @@ double Topk::query(uchar *q,uint size_q) {
     if (start_range == end_range ) {
          uint result = this->d_array[this->bitsequence_leaf->select1(start_range)];
          clock_t end=clock();
-        return double(diffclock(end,begin));
+        return make_pair(0.000,double(diffclock(end,begin)*1.000));
     }
 
     uint l1 = this->bitmap_leaf->select1(start_range);
@@ -364,7 +365,7 @@ double Topk::query(uchar *q,uint size_q) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-    vector<pair<uint,uint>> v = this->d_sequence->range_call(s_new_range, e_new_range, 1, tdepth, 10);
+    vector<pair<uint,uint>> v = this->d_sequence->range_call(s_new_range, e_new_range, 1, tdepth, 1000);
     // cout << "vector size = " << v.size() << endl;
 
 
@@ -376,7 +377,7 @@ double Topk::query(uchar *q,uint size_q) {
     // //    cout << "v[" << i << "].depth' = " << this->gd_sequence[v[i].second] << endl;
     // }
     clock_t end=clock();
-    return double(diffclock(end,begin));
+    return make_pair(double(diffclock(end,begin_wt)*1.000),double(diffclock(end,begin)*1.000));
 }
 
 

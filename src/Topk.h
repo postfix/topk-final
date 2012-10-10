@@ -65,7 +65,7 @@ class Topk
         void fillLinkList(uint num_files);
         void generateSequence();
         void constructAll(vector<uint> &freq_array,uint *depth_sequence);
-        double query(uchar* q,uint size_q);
+        pair<double,double> query(uchar* q,uint size_q);
         size_t getSize();
         ~Topk();
 };

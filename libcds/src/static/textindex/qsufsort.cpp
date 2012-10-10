@@ -12,7 +12,7 @@
    of this software.*/
 
 #include <limits.h>
-
+#include <stdio.h>
 static int *I,                  /* group array, ultimately suffix array.*/
    *V,                          /* inverse array, ultimately inverse of I.*/
    r,                           /* number of symbols aggregated by transform.*/

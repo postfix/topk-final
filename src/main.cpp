@@ -43,14 +43,28 @@ int main(int argc, char *argv[]) {
             queries[j] = (uchar*)strdup(qreal[j].c_str());
         }
 
-        double result = 0.00000;
+        pair<double,double> result;
+	double time_wt = 0.0000;
+	int count_wt = 0;
+	double time_csa = 0.0000;
+	int count_csa =0;
         for (int i = 0 ; i < qreal.size()-1;i++) {
             // cout << "qreal = " << queries[i] << endl;
             // cout << "qlength = " << qreal[i].length() << endl;
-            result += tk->query(queries[i],qreal[i].length());      
+            result = tk->query(queries[i],qreal[i].length());      
+	    if (result.first != 0) {
+	    	time_wt += result.first*1.0000;
+		count_wt++;
+	     }
+	   if (result.second != 0) { 
+	    time_csa += result.second*1.0000;
+	    count_csa++;
+	    }
         }
+        cout << qreal[0].length() << "\t" << (double)(time_wt*1.00/(double)(count_wt*1.00)) << "\t" << (double)(time_csa*1.00)/(double)(count_csa*1.00) << endl;
+	cout << qreal[0].length() << "\t time_wt = " << (double)(time_wt*1.00000) << " \t count = " << count_wt << endl;
+	cout << qreal[0].length() << "\t time_csa = " << (double)(time_csa*1.00000) << "\t count = " << count_csa <<  endl;
 
-        cout << qreal[0].length() << "\t" << (double)(result*1.00/(qreal.size()*1.00)) << endl;
         // for (int i = 0 ; i < qreal.size()-1;i++)
         //     free(queries[i]);
        //delete [] queries;
