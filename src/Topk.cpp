@@ -240,9 +240,9 @@ void Topk::generateSequence() {
     bsleaf->setBit(this->number_of_nodes+depth_sequence.size());
     map_leaf->setBit(this->number_of_nodes);
     // cout << "constructing bitsequence" << endl;
-    this->bitsequence_map = new BitSequenceRG(*bsmap,20);
-    this->bitsequence_leaf = new BitSequenceRG(*bsleaf,20);
-    this->bitmap_leaf = new BitSequenceRG(*map_leaf,20);
+    this->bitsequence_map = new BitSequenceRRR(*bsmap,32);
+    this->bitsequence_leaf = new BitSequenceRRR(*bsleaf,32);
+    this->bitmap_leaf = new BitSequenceRRR(*map_leaf,32);
     delete[] bsmap_data;
     delete[] bsleaf_data;
     delete[] leaf_data;
@@ -293,7 +293,7 @@ void Topk::generateSequence() {
      //    cout << "| " << i << " | " << gd_sequence[i] << " | " <<  this->freq_array[i] << " | " << document_array[i] << endl;
     // }
     this->doc_array = new Array(document_array,this->pointer_size);
-  //  this->freq_dacs = new factorization(this->freq_array,this->pointer_size);
+    this->freq_dacs = new factorization(this->freq_array,this->pointer_size);
 
     // cout << "Constructing Wavelet Tree of Depth Sequences" << endl;
     Array *A = new Array(depth_sequence_array,this->pointer_size);

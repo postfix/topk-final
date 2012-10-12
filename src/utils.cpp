@@ -174,7 +174,62 @@ inline size_t loadText2(char *filename, char **textt, size_t *length) {
     return 0;
   }
 
+    // char *text;
+    // size_t length;
+    // loadText2(file,&text,&length);
+    // int n = length-1;
+    // int  *x, *p,*p2,*p3;
+    // int  k, l;
+    // uchar *x2;
+    // l = 0;
+    // k=UCHAR_MAX+1;
+    // p= (int *)malloc((n+1)*sizeof *p);
+    // p2= (int *)malloc((n+1)*sizeof *p2);
+    // p3= (int *)malloc((n+1)*sizeof *p3);
+    // x2 = (uchar *)malloc((n+1)*sizeof *x2);
+    // x= (int *)malloc((n+1)*sizeof *x);
 
+    // for (int i = 0 ; i < n;i++) {
+    //     cout << "text[i] = " << text[i] << endl;
+    //     x[i] = text[i];
+    //     x2[i] = x[i];
+    // }
+    // suffixsort(x, p, n, k, l);
+    // cout << "------qsufsort---" << endl;
+    // for (int i = 0 ; i < n+1;i++) {
+    //     cout << "p[" << i << "] = " << p[i] << endl;
+    // }
+
+    // p[0] = n;
+    // for (int i=0; i<=n; ++i) p[i]++;
+
+    // cout << "------------ sadakane modification ---------" << endl;
+
+    // for (int i = 0 ; i < n+1;i++) {
+    //     cout << "p[" << i << "] = " << p[i] << endl;
+    // }
+    // divsufsort(x2,p2,n);
+
+    // cout << "------------ divsufsort ---------" << endl;
+    // for (int i = 0 ; i < n+1;i++) {
+    //     cout << "p[" << i << "] = " << p2[i] << endl;
+    // }
+
+    // for (int i = 0 ;i < n +1;i++) {
+    //     p3[i+1] = p2[i];
+    // }
+    // p3[0] = n;
+    // for (int i=0; i<=n; ++i) p3[i]++;
+    // cout << "------------ divsufsort' ---------" << endl;
+    // for (int i = 0 ; i < n+1;i++) {
+    //     cout << "p[" << i << "] = " << p3[i] << endl;
+    // }
+
+    // for (int i = 0 ; i < n+1;i++) {
+    //     if (p[i] != p3[i]) 
+    //         cout << "Error on " << i << "(" << p[1] << " != " << p3[i] << ")" << endl;
+    // }
+ 
 
 class Timer {
   public:

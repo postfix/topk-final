@@ -45,9 +45,10 @@ class Topk
 
         Array *doc_array;
         factorization *freq_dacs;
-        BitSequenceRG *bitsequence_map;
-        BitSequenceRG *bitsequence_leaf;
-        BitSequenceRG *bitmap_leaf;
+        
+        BitSequenceRRR *bitsequence_map;
+        BitSequenceRRR *bitsequence_leaf;
+        BitSequenceRRR *bitmap_leaf;
 
 
         vector<pair<uint,uint>> preorder_vector;
