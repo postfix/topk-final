@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     char file[] = "merged";
     vector<vector<string> > general_queries;
     for (int i = 1 ; i < 10;i++) {
-        vector<string> queries = generateQueries(file,i,10);
+        vector<string> queries = generateQueries(file,i,4000);
         general_queries.push_back(queries);
     }
     
@@ -53,11 +53,13 @@ int main(int argc, char *argv[]) {
                 time_csa += result.second*1.0000;
                 count_csa++;
     	    } else {
+	        time_csa += result.second*1.000;
+		count_csa++;
                 time_wt += result.first*1.0000;
                 count_wt++;   
             }
         }
-        cout << qreal[0].length() << "\t" << (double)(time_wt*1.00/(double)(count_wt*1.00)) << "\t" << (double)(time_csa*1.00)/(double)(count_csa*1.00) << endl;
+        cout << qreal[0].length() << "\t" << (double)(time_wt*1.00/(double)(count_wt*1.00)) << "\t" << (double)(time_csa*1.00)/(double)(count_csa*1.00) << "\t" <<  (time_csa+time_wt)/(double)(count_wt+0.000+count_csa+0.0000) << endl;
         cout << qreal[0].length() << "\t time_wt = " << (double)(time_wt*1.00000) << " \t count = " << count_wt << endl;
         cout << qreal[0].length() << "\t time_csa = " << (double)(time_csa*1.00000) << "\t count = " << count_csa <<  endl;
 

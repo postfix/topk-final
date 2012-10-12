@@ -242,6 +242,9 @@ void Topk::generateSequence() {
     this->bitsequence_map = new BitSequenceRG(*bsmap,20);
     this->bitsequence_leaf = new BitSequenceRG(*bsleaf,20);
     this->bitmap_leaf = new BitSequenceRG(*map_leaf,20);
+    delete[] bsmap_data;
+    delete[] bsleaf_data;
+    delete[] leaf_data;
     // cout << "done!" << endl;
     nodes_preorder.clear();
     this->pointer_size = depth_sequence.size();
@@ -317,9 +320,8 @@ void Topk::generateSequence() {
 
 pair<double,double> Topk::query(uchar *q,uint size_q) {
     Timer *t1 = new Timer();
-    Timer *t2 = new Timer();
 
-    cout << "received query:" << q << endl;
+    //cout << "received query:" << q << endl;
     pair<int, int> posn = ticsa->count(q,size_q);
     if (posn.second - posn.first + 1 == 0) {
         t1->Stop();
@@ -338,7 +340,9 @@ pair<double,double> Topk::query(uchar *q,uint size_q) {
          t1->Stop();
          return make_pair(-1,t1->ElapsedTimeCPU());
     }
+    t1->Stop();
 
+    Timer *t2 = new Timer();
     uint l1 = this->bitmap_leaf->select1(start_range);
     uint l2 = this->bitmap_leaf->select1(end_range);
     uint l11 = this->t->Preorden_Select(l1 + 1);
@@ -382,7 +386,6 @@ pair<double,double> Topk::query(uchar *q,uint size_q) {
     // cout << "begin = " << (long double)(begin+0.000) << endl;
     // cout << "end = " << end << endl;
     // cout << "divisible = " << (long double)(long double)((long double)end+0.000-(long double)begin+0.0000)/(long double)(CLOCKS_PER_SEC+0.0000);
-    t1->Stop();
     t2->Stop();
     return make_pair(t2->ElapsedTimeCPU(),t1->ElapsedTimeCPU());
 

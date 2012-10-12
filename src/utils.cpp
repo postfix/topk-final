@@ -149,7 +149,7 @@ vector<string> generateQueries(char *file, int length, int num) {
     buffer[length] = '\0';
     count++;
     string s(buffer);
-    cout << "adding s=" << s << endl;
+//    cout << "adding s=" << s << endl;
     result.push_back(s);
   }
   return result;
