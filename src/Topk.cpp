@@ -4,15 +4,16 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     // Loading the Text
     char *text=NULL;
     // cout << "file = " << file << endl;
+    cout << "loading file" << endl;
     if(loadText(file, &text, &this->length))
         return;
- //   cout << "constructing suffix tree";
+   cout << "constructing suffix tree";
  //   cout << "length =" << this->length << endl;
     this->cst = new SuffixTreeY(text, this->length, NAIVE, CN_NPR, 32);
-//    cout << "Done!" << endl;
-//    cout << "Constructing Suffix Array";
+    cout << "Done!" << endl;
+    cout << "Constructing Suffix Array";
     this->ticsa = new TextIndexCSA((uchar *)text, (ulong)this->length, NULL);
-//    cout << "Done!" << endl;
+    cout << "Done!" << endl;
     // removing the text
     delete[] text;
 

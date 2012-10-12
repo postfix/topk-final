@@ -78,19 +78,26 @@ int main(int argc, char *argv[]) {
     // }
  
     
-    vector<vector<string> > general_queries;
+        cout << "constructing topk" << endl;
+    Topk *tk = new Topk(file,file_sizes,files.size());
+vector<vector<string> > general_queries;
     cout << "generating queries..." << endl;
-    for (int i = 1 ; i < 70;i++) { 
+   int i = 1;
+    while(i<70) { 
         vector<string> queries = generateQueries(file,i,1000);
         general_queries.push_back(queries);
-        if (i%10 == 0 ) {
+ 
+	if (i >= 10) { 
+	i+=10;
+	} else { 
+	i++;
+	}
+       if (i%10 == 0 ) {
             cout << "queries " << i << " done " << endl;
         }
     }
     cout << "end!" << endl;
 
-    
-    Topk *tk = new Topk(file,file_sizes,files.size());
 
     
     for (int kk = 10;kk<1000;kk+=10) {
@@ -122,9 +129,9 @@ int main(int argc, char *argv[]) {
                     count_wt++;   
                 }
             }
-            cout << kk << "\t" << qreal[0].length() << "\t" << (double)(time_wt*1.00/(double)(count_wt*1.00)) << "\t" << (double)(time_csa*1.00)/(double)(count_csa*1.00) << "\t" <<  (time_csa+time_wt)/(double)(count_wt+0.000+count_csa+0.0000) << endl;
-            cout << kk << "\t" << qreal[0].length() << "\t time_wt = " << (double)(time_wt*1.00000) << " \t count = " << count_wt << endl;
-            cout << kk << "\t" << qreal[0].length() << "\t time_csa = " << (double)(time_csa*1.00000) << "\t count = " << count_csa <<  endl;
+            cout << kk << "," << qreal[0].length() << "," << (double)(time_wt*1.00/(double)(count_wt*1.00)) << "," << (double)(time_csa*1.00)/(double)(count_csa*1.00) << "," <<  (time_csa+time_wt)/(double)(count_wt+0.000+count_csa+0.0000) << endl;
+//            cout << kk << "\t" << qreal[0].length() << "\t time_wt = " << (double)(time_wt*1.00000) << " \t count = " << count_wt << endl;
+//            cout << kk << "\t" << qreal[0].length() << "\t time_csa = " << (double)(time_csa*1.00000) << "\t count = " << count_csa <<  endl;
 
         }
     }
