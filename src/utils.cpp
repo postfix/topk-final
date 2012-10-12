@@ -104,16 +104,16 @@ size_t *mergeFiles(vector<string> files, size_t n)
 		  // printf ("Size of file %i ,  %ld bytes.\n",i,size);
 			fwrite (buffer , 1 , size, faux );
       char c = 0;
-      fwrite (&c , 1 , 1, faux );
-      c = 255;
-      fwrite (&c , 1 , 1, faux );
-      sizes[i-1] = size+2;
+       fwrite (&c , 1 , 1, faux );
+       c = 255;
+       fwrite (&c , 1 , 1, faux );
+       sizes[i-1] = size+2;
       delete [] (buffer);
    		fclose (pFile);	
 		}
 	}
-  char c = 255;
-  fwrite (&c , 1 , 1, faux );
+   char c = 255;
+   fwrite (&c , 1 , 1, faux );
       
   
 	fclose(faux);
@@ -156,6 +156,23 @@ vector<string> generateQueries(char *file, int length, int num) {
 
 }
 
+
+inline size_t loadText2(char *filename, char **textt, size_t *length) {
+    char *text;
+    ifstream in(filename);
+    if(!in.good())
+      return 1;
+    in.seekg(0,ios_base::end);
+    size_t len = in.tellg();
+    text = new char[len+1];
+    in.seekg(0,ios_base::beg);
+    in.read(text,len);
+    in.close();
+    text[len] = '\0';
+    *textt = text;
+    *length = len+1;
+    return 0;
+  }
 
 
 

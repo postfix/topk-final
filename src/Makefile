@@ -7,8 +7,9 @@ OBJECTS_DIR=objects/
 LIB=lib/all_lib.a
 INCLUDES_LIBCDS=-I$(LIBCDS)/includes/
 INCLUDES_TREES=-I../trees/*.h
-SRC_LIBCDS=../libcds/src/static/sequence/*.cpp ../libcds/src/static/bitsequence/*.cpp ../libcds/src/static/mapper/*.cpp ../libcds/src/static/coders/*.cpp ../libcds/src/static/permutation/*.cpp ../libcds/src/utils/*.cpp ../libcds/src/static/textindex/*.cpp ../libcds/src/static/suffixtree/*.cpp 
-INCLUDES=-I. -I../trees/ -I$(LIBCDS)/includes/  
+SRC_LIBCDS=../libdivsufsort-lite/divsufsort.c ../libcds/src/static/sequence/*.cpp ../libcds/src/static/bitsequence/*.cpp ../libcds/src/static/mapper/*.cpp ../libcds/src/static/coders/*.cpp ../libcds/src/static/permutation/*.cpp ../libcds/src/utils/*.cpp ../libcds/src/static/textindex/*.cpp ../libcds/src/static/suffixtree/*.cpp 
+INCLUDES=-I. -I../trees/ -I$(LIBCDS)/includes/ -I../libdivsufsort-lite/
+ 
 SRC_TREES= ../trees/*.cpp
 SRC_RMQ=rmq.cpp
 

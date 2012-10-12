@@ -292,9 +292,8 @@ void Topk::generateSequence() {
      //    cout << "| " << i << " | " << gd_sequence[i] << " | " <<  this->freq_array[i] << " | " << document_array[i] << endl;
     // }
     this->doc_array = new Array(document_array,this->pointer_size);
-    this->freq_dacs = new factorization(this->freq_array,this->pointer_size);
+  //  this->freq_dacs = new factorization(this->freq_array,this->pointer_size);
 
-    frequencies.clear();
     // cout << "Constructing Wavelet Tree of Depth Sequences" << endl;
     Array *A = new Array(depth_sequence_array,this->pointer_size);
     MapperNone * map = new MapperNone();
@@ -307,7 +306,12 @@ void Topk::generateSequence() {
   //  for (int i = 0; i < A->getLength(); i++) {
   //      cout << i << " " << ((this->max_freq - norm_weight[i]) == (this->freq_array[i])) << " " << gd_sequence[i] << " " << (this->max_freq - norm_weight[i]) << " " << (this->freq_array[i]) << endl;
   //  }
-    
+    //frequencies.clear();
+   // documents.clear();
+    depth_sequence.clear();
+    delete[] depth_sequence_array;
+    delete[] document_array;
+   // delete[] gd_sequence;
     delete A;
     delete []norm_weight;
     delete this->da;
@@ -318,7 +322,7 @@ void Topk::generateSequence() {
   //  cout << "Done! " << endl;
 }
 
-pair<double,double> Topk::query(uchar *q,uint size_q) {
+pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     Timer *t1 = new Timer();
 
     //cout << "received query:" << q << endl;
@@ -355,7 +359,7 @@ pair<double,double> Topk::query(uchar *q,uint size_q) {
     tdepth = this->t->Depth(lca);
     pp = p + this->t->Subtree_Size(lca);
     size_t s_new_range = this->bitsequence_map->select1(p) - p + 1;
-    assert(pp <= this->bitsequence_map->countOnes());
+   // assert(pp <= this->bitsequence_map->countOnes());
     size_t e_new_range = this->bitsequence_map->select1(pp) - pp;
     uint max = 0;
     uint max_pos = 0;
@@ -371,7 +375,7 @@ pair<double,double> Topk::query(uchar *q,uint size_q) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-    vector<pair<uint,uint>> v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, 1000);
+    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
     //cout << "vector size = " << v.size() << endl;
 
 

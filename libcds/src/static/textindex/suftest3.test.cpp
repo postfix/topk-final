@@ -48,6 +48,7 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <string.h>
+#include <divsufsort.h>
 
 #ifndef uchar
 #define uchar unsigned char
@@ -185,27 +186,43 @@ namespace cds_static{
 		 int  k, l;
 		 p= (int *)malloc((n+1)*sizeof *p);
 		 x= (int *)malloc((n+1)*sizeof *x);
+	 	 // rkonow modification
+		 uchar *x2;
+		 x2 = (uchar *)malloc((n+1)*sizeof *x2);
 		 if (! p || ! x) {
 				return 1;
 		 }
 		 for ( i=0; i<n; i++) {
 			 x[i]=text[i];
+			 x2[i] = text[i];
 		 }
 		 l=0;
 		 k=UCHAR_MAX+1;
 
-		 suffixsort(x, p, n, k, l);
+		 int *p3,*p2;
+		 p2 = (int *)malloc((n+1)*sizeof *p2);
+		 p3 = (int *)malloc((n+1)*sizeof *p3);
+         divsufsort(x2,p2,n);
+
+         for (int i = 0 ;i <= n;i++) {
+        	p3[i+1] = p2[i];
+    	}
+    	p3[0] = n;
+    	for (int i=0; i<=n; ++i) p3[i]++;
+		 // end rkonow modification
+
+//		 suffixsort(x, p, n, k, l);
 		 free(x);
-		 p[0] = n;
+//		 p[0] = n;
 		 /* End Make SA */
 
 		 /* ³Ì¶ñÍ 0..n-1 Å n ÔÚÉÍ 0 ªüéB
 				p[0] ÍK¸ n ÉÈéBp[1..n]É0..n-1ªüÁÄ¢éB*/
-		 for (i=0; i<=n; ++i) p[i]++;  /* p[1..n]É1..nªüÁÄ¢éBp[0]=n+1*/
+//		 for (i=0; i<=n; ++i) p[i]++;  /* p[1..n]É1..nªüÁÄ¢éBp[0]=n+1*/
 
 		 sprintf(fname1,"%s.psi",filename);
 		 sprintf(fname2,"%s.idx",filename);
-		 csa_new(n,p,text,fname1,fname2,rankb_w,rankb_w2);
+		 csa_new(n,p3,text,fname1,fname2,rankb_w,rankb_w2);
 		 free(p);
 		 if (free_text) 
 			 free(text);
