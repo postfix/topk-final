@@ -30,7 +30,7 @@ vector<vector<string> > general_queries;
     cout << "generating queries..." << endl;
    int h = 1;
     while(h<=70) { 
-        vector<string> queries = generateQueries(file,h,1000);
+        vector<string> queries = generateQueries(file,h,5000);
         general_queries.push_back(queries);
     	if (h >= 10)
         	h+=10;
@@ -42,8 +42,9 @@ vector<vector<string> > general_queries;
     cout << "end!" << endl;
 
 
-    
-    for (int kk = 10;kk<1000;kk+=10) {
+    int increase = 10;
+    for (int kk = 10;kk<=1000;kk+=increase) {
+	if (kk>=100) { increase = 100; }
         for (int i = 0;i<general_queries.size();i++) {
             vector<string> qreal = general_queries[i];            
             uchar **queries = new uchar*[qreal.size()];
@@ -51,14 +52,17 @@ vector<vector<string> > general_queries;
             int count_wt = 0;
             double time_csa = 0.0000;
             int count_csa =0;    
+//	    cout << "query size = " << qreal[0].length() << endl;
             for (int j = 0 ; j < qreal.size(); j++) {
                 //cout << "length= " << qreal[0].length() << endl;
                 queries[j] = new uchar[qreal[0].length()+1];
-                for (int k = 0;k < qreal[0].length();k++) {
+                
+		for (int k = 0;k < qreal[0].length();k++) {
                     queries[j][k] = qreal[j][k];
                 }
-                queries[j][qreal[0].length()] = '\0';
+	        queries[j][qreal[0].length()] = '\0';
                 //queries[j] = (uchar*)strdup(qreal[j].c_str());
+//		cout << "queries[" <<j<<"] =" << queries[j] << endl;
               // cout << "query[" << i << "] = " << queries[j] << endl;
                 pair<double,double> result;
             	result = tk->query(queries[j],qreal[0].length(),kk);      
@@ -72,9 +76,8 @@ vector<vector<string> > general_queries;
                     count_wt++;   
                 }
             }
-            cout << kk << "," << qreal[0].length() << "," << (double)(time_wt*1.00/(double)(count_wt*1.00));
-            cout << "," << (double)(time_csa*1.00)/(double)(count_csa*1.00); 
-            cout << "," << (time_csa+time_wt)/(double)(count_wt+0.000+count_csa+0.0000);
+            cout << qreal[0].length();
+	    cout << "," << kk;
             cout << "," << time_wt;
             cout << "," << time_csa;
             cout << "," << count_wt;

@@ -240,9 +240,9 @@ void Topk::generateSequence() {
     bsleaf->setBit(this->number_of_nodes+depth_sequence.size());
     map_leaf->setBit(this->number_of_nodes);
     // cout << "constructing bitsequence" << endl;
-    this->bitsequence_map = new BitSequenceRRR(*bsmap,32);
-    this->bitsequence_leaf = new BitSequenceRRR(*bsleaf,32);
-    this->bitmap_leaf = new BitSequenceRRR(*map_leaf,32);
+    this->bitsequence_map = new BitSequenceRG(*bsmap,20);
+    this->bitsequence_leaf = new BitSequenceRG(*bsleaf,20);
+    this->bitmap_leaf = new BitSequenceRG(*map_leaf,20);
     delete[] bsmap_data;
     delete[] bsleaf_data;
     delete[] leaf_data;
@@ -326,18 +326,18 @@ void Topk::generateSequence() {
 pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     Timer *t1 = new Timer();
 
-    //cout << "received query:" << q << endl;
+//    cout << "received query:" << q << endl;
     pair<int, int> posn = ticsa->count(q,size_q);
     if (posn.second - posn.first + 1 == 0) {
         t1->Stop();
        return make_pair(-1,t1->ElapsedTimeCPU());
     }
-  //   cout << "numocc = " << posn.second - posn.first + 1 << endl;
+//     cout << "numocc = " << posn.second - posn.first + 1 << endl;
     size_t start_range = posn.first;
     size_t end_range = posn.second;
     if (end_range > length) end_range = length;
-    // cout << "start_range = " << start_range << endl;
-    // cout << "end_range = " << end_range << endl;
+//     cout << "start_range = " << start_range << endl;
+//     cout << "end_range = " << end_range << endl;
     // // if is a leaf:
     if (start_range == end_range ) {
          uint result = this->d_array[this->bitsequence_leaf->select1(start_range)];
@@ -376,8 +376,8 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
-    //cout << "vector size = " << v.size() << endl;
+    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
+//    cout << "vector size = " << v.size() << endl;
 
 
     // for (int i = 0 ; i < v.size();i++) {
