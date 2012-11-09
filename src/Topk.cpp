@@ -48,6 +48,9 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
 
     this->da = new DocumentArray(cst,bsrg,preorder_vector,ticsa); 
     this->ll = new LinkList(2*length);
+    int *CARRAY = this->da->createCArray();
+    RMQ *CRMQ = new RMQ(CARRAY,length);
+
     this->fillLinkList(num_files);
     this->generateSequence();
 }
@@ -99,15 +102,15 @@ void Topk::generateSequence() {
     // all 0's corresponds to different documents for the same node.
     BitString *bsmap = new BitString(50*this->number_of_nodes);
     // if is a leaf, mark it here
-    BitString *bsleaf = new BitString(50*this->number_of_nodes);
+    //BitString *bsleaf = new BitString(50*this->number_of_nodes);
     // map leaf is to map the cst indexing to the pre-order traversal.
     BitString *map_leaf = new BitString(50*this->number_of_nodes);
+    size_t internal_nodes = 0;
     size_t docs_node = 0;
     size_t docs_aux = 0; 
     size_t docs_acum = 0 ;      
     size_t vl_p,vr_p;
     for (uint i = 0; i < this->number_of_nodes;i++) {
-        bsmap->setBit(i+depth_sequence.size());
         pair<uint,uint> aux_node = this->preorder_vector[i];
        // cout << aux_node.first << ", " << aux_node.second << endl;
         if (aux_node.first == aux_node.second) {
@@ -125,6 +128,9 @@ void Topk::generateSequence() {
           //   this->documents.push_back(this->da->doc_array[aux_node.first]);
             continue;
         }
+        bsmap->setBit(internal_nodes+depth_sequence.size());
+        internal_nodes++;
+
          // cout << "node = " << i << endl;
         size_t k = 0;
         // get the i-th node, the k-th document.
@@ -224,7 +230,7 @@ void Topk::generateSequence() {
     }
 
     uint *bsmap_data =  bsmap->getData();  
-    uint *bsleaf_data = bsleaf->getData();
+    //uint *bsleaf_data = bsleaf->getData();
     uint *leaf_data = map_leaf->getData();
     //  for (int i = 0 ; i < this->number_of_nodes+depth_sequence.size();i++) {
     //      cout << "bsmap[" << i << "] = " << bsmap->getBit(i) << " | " << bsleaf->getBit(i) << endl;
@@ -232,19 +238,19 @@ void Topk::generateSequence() {
     // cout << "done printing!" << endl;
     // cout << "creating new bitstrings" << endl;
     // resize the bitmaps to their corresponding sizes.
-    bsmap = new BitString(bsmap_data,this->number_of_nodes+depth_sequence.size()+1);
-    bsleaf = new BitString(bsleaf_data,this->number_of_nodes+depth_sequence.size()+1);
+    bsmap = new BitString(bsmap_data,internal_nodes+depth_sequence.size()+1);
+    //bsleaf = new BitString(bsleaf_data,internal_nodes+depth_sequence.size()+1);
     map_leaf = new BitString(leaf_data,this->number_of_nodes+2);
     // cout << "setting last bit " << endl;
     bsmap->setBit(this->number_of_nodes+depth_sequence.size());
-    bsleaf->setBit(this->number_of_nodes+depth_sequence.size());
+    //bsleaf->setBit(this->number_of_nodes+depth_sequence.size());
     map_leaf->setBit(this->number_of_nodes);
     // cout << "constructing bitsequence" << endl;
     this->bitsequence_map = new BitSequenceRG(*bsmap,20);
-    this->bitsequence_leaf = new BitSequenceRG(*bsleaf,20);
+    //this->bitsequence_leaf = new BitSequenceRG(*bsleaf,20);
     this->bitmap_leaf = new BitSequenceRG(*map_leaf,20);
     delete[] bsmap_data;
-    delete[] bsleaf_data;
+    //delete[] bsleaf_data;
     delete[] leaf_data;
     // cout << "done!" << endl;
     nodes_preorder.clear();
@@ -319,7 +325,7 @@ void Topk::generateSequence() {
     delete this->ll;
     delete this->stp;
     delete bsmap;
-    delete bsleaf;
+    //delete bsleaf;
   //  cout << "Done! " << endl;
 }
 
@@ -340,7 +346,7 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
 //     cout << "end_range = " << end_range << endl;
     // // if is a leaf:
     if (start_range == end_range ) {
-         uint result = this->d_array[this->bitsequence_leaf->select1(start_range)];
+        // uint result = this->d_array[this->bitsequence_leaf->select1(start_range)];
          clock_t end=clock();
          t1->Stop();
          return make_pair(-1,t1->ElapsedTimeCPU());

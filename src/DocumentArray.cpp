@@ -39,6 +39,8 @@ class DocumentArray
                      // cout << "doc_array[" << i << "]" << this->doc_array[i] << endl;
                 }
             }
+
+
             // cout << "constructing wavelet tree" << endl;
             //uint *sequence = new uint[this->n];
             Array *A = new Array(this->doc_array,this->n);
@@ -47,8 +49,28 @@ class DocumentArray
             this->doc_sequence = new WaveletTreeNoptrs(*A, bsb, map);
             // cout << "end!" << endl;
             delete A;
+//            delete []doc_array;
             //delete map;
             //delete bsb;
+        }
+
+        int * createCArray() {
+            int * Carray = new int[n];
+            int pos = 0;
+            for (int i = 0 ; i < n ; i++) {
+                uint occ_symbol = doc_sequence->rank(doc_array[i],i);
+                if (occ_symbol-1 == 0) {
+                    pos = -1;
+                } else  {
+                    pos = doc_sequence->select(doc_array[i],occ_symbol-1);
+                }
+                if (pos >= (uint)-1) {
+                    pos = -1;
+                }
+                Carray[i] = pos;
+            }
+            delete []this->doc_array;
+            return Carray;
         }
 
         size_t countRange(uint symbol,size_t i,size_t j) {
