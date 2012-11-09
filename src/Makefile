@@ -1,7 +1,7 @@
 CPP=g++
 
-CPPFLAGS=-std=c++0x -c -O3 #-Wall -Wno-sign-compare
-CPPFLAGS2=-std=c++0x -O3  #-Wall -Wno-sign-compare
+CPPFLAGS=-std=c++0x -c -g3 #-Wall -Wno-sign-compare
+CPPFLAGS2=-std=c++0x -g3  #-Wall -Wno-sign-compare
 LIBCDS=../libcds
 OBJECTS_DIR=objects/
 LIB=lib/all_lib.a

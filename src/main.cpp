@@ -24,13 +24,13 @@ int main(int argc, char *argv[]) {
 
  
     
-        cout << "constructing topk" << endl;
+    cout << "constructing topk" << endl;
     Topk *tk = new Topk(file,file_sizes,files.size());
-vector<vector<string> > general_queries;
+    vector<vector<string> > general_queries;
     cout << "generating queries..." << endl;
-   int h = 1;
+    int h = 1;
     while(h<=70) { 
-        vector<string> queries = generateQueries(file,h,5000);
+        vector<string> queries = generateQueries(file,h,10);
         general_queries.push_back(queries);
     	if (h >= 10)
         	h+=10;
@@ -57,43 +57,32 @@ vector<vector<string> > general_queries;
                 //cout << "length= " << qreal[0].length() << endl;
                 queries[j] = new uchar[qreal[0].length()+1];
                 
-		for (int k = 0;k < qreal[0].length();k++) {
-                    queries[j][k] = qreal[j][k];
-                }
+    		for (int k = 0;k < qreal[0].length();k++) {
+                        queries[j][k] = qreal[j][k];
+                    }
 	        queries[j][qreal[0].length()] = '\0';
-                //queries[j] = (uchar*)strdup(qreal[j].c_str());
-//		cout << "queries[" <<j<<"] =" << queries[j] << endl;
-              // cout << "query[" << i << "] = " << queries[j] << endl;
-                pair<double,double> result;
-            	result = tk->query(queries[j],qreal[0].length(),kk);      
-        	    if (result.first < (double)0) { 
-                    time_csa += result.second*1.0000;
-                    count_csa++;
-        	    } else {
+            pair<double,double> result;
+          	result = tk->query(queries[j],qreal[0].length(),kk);      
+       	    if (result.first < (double)0) { 
+                time_csa += result.second*1.0000;
+                count_csa++;
+            } else {
     	        time_csa += result.second*1.000;
-    		count_csa++;
-                    time_wt += result.first*1.0000;
-                    count_wt++;   
-                }
+    	      	count_csa++;
+                time_wt += result.first*1.0000;
+                count_wt++;   
             }
-            cout << qreal[0].length();
-	    cout << "," << kk;
-            cout << "," << time_wt;
-            cout << "," << time_csa;
-            cout << "," << count_wt;
-            cout << "," << count_csa << endl;
-
-
+        }
+        cout << qreal[0].length();
+        cout << "," << kk;
+        cout << "," << time_wt;
+        cout << "," << time_csa;
+        cout << "," << count_wt;
+        cout << "," << count_csa << endl;
         }
     }
-            
-     
-
+        
     tk->getSize();
-
-   
-    //delete tk;
     delete [] file_sizes;
     delete tk;
-
 }

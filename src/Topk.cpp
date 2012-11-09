@@ -97,11 +97,11 @@ void Topk::generateSequence() {
     size_t bitmap_size = 0;
     // a 1 is set every time a node is being examinated. 
     // all 0's corresponds to different documents for the same node.
-    BitString *bsmap = new BitString(100*this->number_of_nodes);
+    BitString *bsmap = new BitString(50*this->number_of_nodes);
     // if is a leaf, mark it here
-    BitString *bsleaf = new BitString(100*this->number_of_nodes);
+    BitString *bsleaf = new BitString(50*this->number_of_nodes);
     // map leaf is to map the cst indexing to the pre-order traversal.
-    BitString *map_leaf = new BitString(100*this->number_of_nodes);
+    BitString *map_leaf = new BitString(50*this->number_of_nodes);
     size_t docs_node = 0;
     size_t docs_aux = 0; 
     size_t docs_acum = 0 ;      
@@ -114,15 +114,15 @@ void Topk::generateSequence() {
         //    cout << "found leaf on node = " << i << endl;
             // cout << "current pos = " << pointersize+docs_node << endl;
             map_leaf->setBit(i);
-            bsleaf->setBit(i+depth_sequence.size());
-            uint node = this->t->Preorden_Select(nodes_preorder[make_pair(aux_node.first,aux_node.second)]);
-            size_t tdepth = cst->TDepth(aux_node.first,aux_node.second);
-          //  cout << "tdepth 1 = " << tdepth << endl;
-            uint tdepth2 = this->t->Depth(node);
-          //  cout << "tdepth 2 = " << tdepth2 << endl;
-            depth_sequence.push_back(tdepth2);
-            frequencies.push_back(1);
-            this->documents.push_back(this->da->doc_array[aux_node.first]);
+          //   bsleaf->setBit(i+depth_sequence.size());
+          //   uint node = this->t->Preorden_Select(nodes_preorder[make_pair(aux_node.first,aux_node.second)]);
+          //   size_t tdepth = cst->TDepth(aux_node.first,aux_node.second);
+          // //  cout << "tdepth 1 = " << tdepth << endl;
+          //   uint tdepth2 = this->t->Depth(node);
+          // //  cout << "tdepth 2 = " << tdepth2 << endl;
+          //   depth_sequence.push_back(tdepth2);
+          //   frequencies.push_back(1);
+          //   this->documents.push_back(this->da->doc_array[aux_node.first]);
             continue;
         }
          // cout << "node = " << i << endl;
@@ -356,12 +356,26 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     uint tdepth;
     uint p;
     uint pp;
+    
     p = this->t->Preorder_Rank(lca);
     tdepth = this->t->Depth(lca);
     pp = p + this->t->Subtree_Size(lca);
-    size_t s_new_range = this->bitsequence_map->select1(p) - p + 1;
+
+    cout << "p = " << p << endl;
+    cout << "pp = " << pp << endl;    
+    cout << "countOnes leaves = " << this->bitmap_leaf->countOnes() << endl;
+
+    uint leaves_start = this->bitmap_leaf->rank1(p);
+    uint leaves_end = this->bitmap_leaf->rank1(pp);
+    cout << "leaves_start = " << leaves_start << endl;
+    cout << "leaves_end = " << leaves_end << endl;
+    uint new_p = p - leaves_start;
+    uint new_pp = pp - leaves_end;
+    cout << "new_p = " << new_p << endl;
+    cout << "new_pp = " << new_pp << endl;
+    size_t s_new_range = this->bitsequence_map->select1(new_p) - new_p + 1;
    // assert(pp <= this->bitsequence_map->countOnes());
-    size_t e_new_range = this->bitsequence_map->select1(pp) - pp;
+    size_t e_new_range = this->bitsequence_map->select1(new_pp) - new_pp;
     uint max = 0;
     uint max_pos = 0;
     // for (int i  = s_new_range;i<=e_new_range;i++) {
@@ -376,7 +390,7 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
+//    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
 //    cout << "vector size = " << v.size() << endl;
 
 
