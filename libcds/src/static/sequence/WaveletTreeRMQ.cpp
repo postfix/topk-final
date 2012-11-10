@@ -639,6 +639,13 @@ namespace cds_static
         return pair<uint,size_t>(am->unmap(sym),static_cast<uint>(freq));
     }
 
+     uint WaveletTreeRMQ::getHeight() {
+        return this->height;
+     }
+     uint WaveletTreeRMQ::getMaxValue() {
+        return this->max_v;
+     }
+
      void WaveletTreeRMQ::sortWeights(uint *weight, uint *symbols) {
         uint i = 0;
         queue<pair<size_t, size_t> > ranges;

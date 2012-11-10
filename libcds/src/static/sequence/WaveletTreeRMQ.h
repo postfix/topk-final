@@ -103,6 +103,8 @@ public:
 
                   void range(uint ni1,uint ni2,uint i1, uint i2, uint j1, uint j2, uint leftb, uint rightb, uint symb, uint level,priority_queue<TopkResult*,vector<TopkResult*>,CompareTopkResult> &res,priority_queue<RangeInfo*,vector<RangeInfo*>,CompareRangeInfo> &ranges);
                   vector<pair<uint,uint> > range_call(uint i1, uint i2, uint j1, uint j2,uint k);
+                  uint getMaxValue();
+                  uint getHeight();
                   void topk(uint k,priority_queue<RangeInfo*,vector<RangeInfo*>,CompareRangeInfo> &ranges,priority_queue<TopkResult*,vector<TopkResult*>,CompareTopkResult> &res);
                   virtual uint quantile(size_t left,size_t right,uint q);
 

@@ -100,11 +100,11 @@ void Topk::generateSequence() {
     size_t bitmap_size = 0;
     // a 1 is set every time a node is being examinated. 
     // all 0's corresponds to different documents for the same node.
-    BitString *bsmap = new BitString(10*this->number_of_nodes);
+    BitString *bsmap = new BitString(5*this->number_of_nodes);
     // if is a leaf, mark it here
     //BitString *bsleaf = new BitString(50*this->number_of_nodes);
     // map leaf is to map the cst indexing to the pre-order traversal.
-    BitString *map_leaf = new BitString(10*this->number_of_nodes);
+    BitString *map_leaf = new BitString(this->number_of_nodes);
     size_t internal_nodes = 0;
     size_t docs_node = 0;
     size_t docs_aux = 0; 
@@ -263,18 +263,11 @@ void Topk::generateSequence() {
 
     for (size_t i = 0 ; i < depth_sequence.size();i++) {
          depth_sequence_array[i] = depth_sequence[i];
-	 this->freq_array[i] = frequencies[i];
-//	 if(this->max_freq <= frequencies[i]); {
-     //   cout << "wtf! max_freq = " << this->max_freq << " vs freq[" << i << "] = " << frequencies[i] << endl;
-  //   }
-	 norm_weight[i] = this->max_freq - frequencies[i];
+    	 this->freq_array[i] = frequencies[i];
+	    norm_weight[i] = this->max_freq - frequencies[i];
     }
-    // cout << "done!" << endl;
-    // cout << "max freq is = " << this->max_freq << endl;
-    // depth sequences
-    // cout << "pointer_size = " << this->pointer_size << endl;
+
     this->gd_sequence = &depth_sequence[0];
-//    this->freq_array = &frequencies[0];
     uint *document_array = new uint[documents.size()];
     copy(documents.begin(), documents.end(), document_array);
 
@@ -385,20 +378,13 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     tdepth = this->t->Depth(lca);
     pp = p + this->t->Subtree_Size(lca);
 
-    // cout << "p = " << p << endl;
-    // cout << "pp = " << pp << endl;    
-    // cout << "countOnes leaves = " << this->bitmap_leaf->countOnes() << endl;
-
     uint leaves_start = this->bitmap_leaf->rank1(p);
-    uint leaves_end = this->bitmap_leaf->rank1(pp);
-//    cout << "leaves_start = " << leaves_start << endl;
-//    cout << "leaves_end = " << leaves_end << endl;
+    uint leaves_end = this->bitmap_leaf->rank1(pp-1);
     uint new_p = p - leaves_start;
     uint new_pp = pp - leaves_end;
 //    cout << "new_p = " << new_p << endl;
 //    cout << "new_pp = " << new_pp << endl;
     size_t s_new_range = this->bitsequence_map->select1(new_p) - new_p + 1;
-   // assert(pp <= this->bitsequence_map->countOnes());
     size_t e_new_range = this->bitsequence_map->select1(new_pp) - new_pp;
     uint max = 0;
     uint max_pos = 0;
@@ -414,24 +400,24 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
-    cout << "vector size = " << v.size() << " | k " << endl;
-    uint new_k = v.size();
-    if (new_k < k) {
-        map<uint,uint> res;
-        for (int i = 0 ; i < v.size();i++) {
-            uint doc = this->doc_array->getField(v[i].second);
-            res[doc] = 1;
-        }
-        documentList(s_new_range,e_new_range,k-new_k,res);
-    }
+//  vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
+//  cout << "vector size = " << v.size() << " | k " << k << endl;
+    // uint new_k = v.size();
+    // if (new_k < k) {
+    //     map<uint,uint> res;
+    //     for (int i = 0 ; i < v.size();i++) {
+    //         uint doc = this->doc_array->getField(v[i].second);
+    //         res[doc] = 1;
+    //     }
+    //     documentList(s_new_range,e_new_range,k-new_k,res);
+    // }
 
 
-    uint doc,weight;
-    for (int i = 0 ; i < v.size();i++) {
-        doc = this->doc_array->getField(v[i].second);
-        weight = this->max_freq - v[i].first;
-    }
+    // uint doc,weight;
+    // for (int i = 0 ; i < v.size();i++) {
+    //     doc = this->doc_array->getField(v[i].second);
+    //     weight = this->max_freq - v[i].first;
+    // }
    //     cout << "v[" << i << "].weight = " << this->max_freq - v[i].first << endl;
     //     cout << "v[" << i << "].pos = " << v[i].second << endl;
     //     cout << "v[" << i << "].doc = " << this->doc_array->getField(v[i].second) << endl;
@@ -474,9 +460,15 @@ size_t Topk::getSize() {
     size_t rmq_carray_size = this->CRMQ->getSize();
     size_t document_bitmap_size = this->d->getSize();
     size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size + rmq_carray_size + document_bitmap_size;
-    
+    size_t internal_nodes = this->bitsequence_map->countOnes();
+    size_t leaf_nodes = this->bitmap_leaf->countOnes();
+
     cout << "CSA SIZE \t WT SIZE \t FREQ ARRAY \t TREE SIZE \t MAP SIZE \t DOCUMENT ARRAY \t CARRAY_RMQ \t DOC BITMAP \t  TOTAL \t TOTAL(MB) \t RATIO " << endl;
     cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size << "\t" << map_size << "\t" << documents_size << "\t" << rmq_carray_size << "\t" << document_bitmap_size << "\t" << total << "\t" << total/(1024.00*1024.00) << "\t" << (total*1.0)/(this->length*1.0) << "\t" << endl;
+    cout << "Internal nodes:" << internal_nodes << endl;
+    cout << "Leaf nodes:" << internal_nodes << endl;
+    cout << "Grid alphabet:" << this->d_sequence->getMaxValue() << endl;
+    cout << "Grid Height:" << this->d_sequence->getHeight() << endl;
     return total;
 
 }

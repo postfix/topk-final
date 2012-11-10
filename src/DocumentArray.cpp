@@ -86,7 +86,7 @@ class DocumentArray
 
         ~DocumentArray() {
             delete this->doc_sequence;
-            delete[] this->doc_array;
+            //delete[] this->doc_array;
         }
         // void test()
         // {
