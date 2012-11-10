@@ -39,7 +39,7 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     delete tree_parenthesis.first;
 
     // create bitmap Document Array
-    BitSequenceRG *bsrg;
+    BitSequenceDArray *bsrg;
     if (make_random_flag)
         bsrg = buildBs(file_sizes,length,rand_files,true);
     else
@@ -49,7 +49,7 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     this->da = new DocumentArray(cst,bsrg,preorder_vector,ticsa); 
     this->ll = new LinkList(2*length);
     int *CARRAY = this->da->createCArray();
-    RMQ *CRMQ = new RMQ(CARRAY,length);
+    this->CRMQ = new RMQ(CARRAY,length);
 
     this->fillLinkList(num_files);
     this->generateSequence();
@@ -100,11 +100,11 @@ void Topk::generateSequence() {
     size_t bitmap_size = 0;
     // a 1 is set every time a node is being examinated. 
     // all 0's corresponds to different documents for the same node.
-    BitString *bsmap = new BitString(50*this->number_of_nodes);
+    BitString *bsmap = new BitString(10*this->number_of_nodes);
     // if is a leaf, mark it here
     //BitString *bsleaf = new BitString(50*this->number_of_nodes);
     // map leaf is to map the cst indexing to the pre-order traversal.
-    BitString *map_leaf = new BitString(50*this->number_of_nodes);
+    BitString *map_leaf = new BitString(10*this->number_of_nodes);
     size_t internal_nodes = 0;
     size_t docs_node = 0;
     size_t docs_aux = 0; 
@@ -325,8 +325,26 @@ void Topk::generateSequence() {
     delete this->ll;
     delete this->stp;
     delete bsmap;
+    delete map_leaf;
     //delete bsleaf;
   //  cout << "Done! " << endl;
+}
+
+void Topk::documentList(uint i, uint j,uint k,map<uint,uint> &results) {
+  if (i>j) return;
+  if (k == 0) return;
+  uint pos = this->CRMQ->query(i,j);
+  uint doc = this->d->rank1(this->ticsa->getSA(pos)); 
+  if (results.find(doc) != results.end()) {
+    return;
+  }
+  else {
+    results[doc] = 1;
+    k--;
+  } 
+  documentList(i,pos-1,k,results);
+  documentList(pos+1,j,k,results);
+
 }
 
 pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
@@ -367,18 +385,18 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     tdepth = this->t->Depth(lca);
     pp = p + this->t->Subtree_Size(lca);
 
-    cout << "p = " << p << endl;
-    cout << "pp = " << pp << endl;    
-    cout << "countOnes leaves = " << this->bitmap_leaf->countOnes() << endl;
+    // cout << "p = " << p << endl;
+    // cout << "pp = " << pp << endl;    
+    // cout << "countOnes leaves = " << this->bitmap_leaf->countOnes() << endl;
 
     uint leaves_start = this->bitmap_leaf->rank1(p);
     uint leaves_end = this->bitmap_leaf->rank1(pp);
-    cout << "leaves_start = " << leaves_start << endl;
-    cout << "leaves_end = " << leaves_end << endl;
+//    cout << "leaves_start = " << leaves_start << endl;
+//    cout << "leaves_end = " << leaves_end << endl;
     uint new_p = p - leaves_start;
     uint new_pp = pp - leaves_end;
-    cout << "new_p = " << new_p << endl;
-    cout << "new_pp = " << new_pp << endl;
+//    cout << "new_p = " << new_p << endl;
+//    cout << "new_pp = " << new_pp << endl;
     size_t s_new_range = this->bitsequence_map->select1(new_p) - new_p + 1;
    // assert(pp <= this->bitsequence_map->countOnes());
     size_t e_new_range = this->bitsequence_map->select1(new_pp) - new_pp;
@@ -396,12 +414,25 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-//    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
-//    cout << "vector size = " << v.size() << endl;
+    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k*2);
+    cout << "vector size = " << v.size() << " | k " << endl;
+    uint new_k = v.size();
+    if (new_k < k) {
+        map<uint,uint> res;
+        for (int i = 0 ; i < v.size();i++) {
+            uint doc = this->doc_array->getField(v[i].second);
+            res[doc] = 1;
+        }
+        documentList(s_new_range,e_new_range,k-new_k,res);
+    }
 
 
-    // for (int i = 0 ; i < v.size();i++) {
-    //     cout << "v[" << i << "].weight = " << this->max_freq - v[i].first << endl;
+    uint doc,weight;
+    for (int i = 0 ; i < v.size();i++) {
+        doc = this->doc_array->getField(v[i].second);
+        weight = this->max_freq - v[i].first;
+    }
+   //     cout << "v[" << i << "].weight = " << this->max_freq - v[i].first << endl;
     //     cout << "v[" << i << "].pos = " << v[i].second << endl;
     //     cout << "v[" << i << "].doc = " << this->doc_array->getField(v[i].second) << endl;
     // //    cout << "v[" << i << "].weight' = " << this->freq_array[v[i].second] << endl;
@@ -426,7 +457,7 @@ Topk::~Topk() {
     delete this->t;
     //delete []this->d_array;
     delete this->freq_dacs;
-    delete this->bitsequence_leaf;
+//    delete this->bitsequence_leaf;
     delete this->bitsequence_map;
     delete this->d;
 }
@@ -440,11 +471,12 @@ size_t Topk::getSize() {
     size_t tree_size = this->t->size();
     size_t map_size = this->bitsequence_map->getSize() + this->bitmap_leaf->getSize();
     size_t documents_size = this->doc_array->getSize();
+    size_t rmq_carray_size = this->CRMQ->getSize();
+    size_t document_bitmap_size = this->d->getSize();
+    size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size + rmq_carray_size + document_bitmap_size;
     
-    size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size;
-    
-    cout << "CSA SIZE \t WT SIZE \t FREQ ARRAY \t TREE SIZE \t MAP SIZE \t DOCUMENT ARRAY \t TOTAL \t TOTAL(MB) \t RATIO " << endl;
-    cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size << "\t" << map_size << "\t" << documents_size << "\t" << total << "\t" << total/(1024.00*1024.00) << "\t" << (total*1.0)/(this->length/1.0) << "\t" << endl;
+    cout << "CSA SIZE \t WT SIZE \t FREQ ARRAY \t TREE SIZE \t MAP SIZE \t DOCUMENT ARRAY \t CARRAY_RMQ \t DOC BITMAP \t  TOTAL \t TOTAL(MB) \t RATIO " << endl;
+    cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size << "\t" << map_size << "\t" << documents_size << "\t" << rmq_carray_size << "\t" << document_bitmap_size << "\t" << total << "\t" << total/(1024.00*1024.00) << "\t" << (total*1.0)/(this->length*1.0) << "\t" << endl;
     return total;
 
 }

@@ -41,10 +41,11 @@ class Topk
         TextIndex *ticsa;
         WaveletTreeRMQ *d_sequence;
         tree_ff *t;
-        BitSequenceRG * d;
+        BitSequenceDArray * d;
 
         Array *doc_array;
         factorization *freq_dacs;
+        RMQ *CRMQ;
         
         BitSequenceRG *bitsequence_map;
         BitSequenceRG *bitsequence_leaf;
@@ -68,5 +69,7 @@ class Topk
         void constructAll(vector<uint> &freq_array,uint *depth_sequence);
         pair<double,double> query(uchar* q,uint size_q,uint k);
         size_t getSize();
+        void documentList(uint i, uint j,uint k,map<uint,uint> &results);
+
         ~Topk();
 };

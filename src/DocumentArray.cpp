@@ -4,6 +4,7 @@
 #include <Sequence.h>
 #include <Mapper.h>
 #include <BitSequenceRG.h>
+#include <BitSequenceDArray.h>
 #include <BitString.h>
 
 using namespace std;
@@ -17,7 +18,7 @@ class DocumentArray
         size_t n;
         WaveletTreeNoptrs *doc_sequence;
 
-        DocumentArray(SuffixTreeY *& cst,BitSequenceRG *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
+        DocumentArray(SuffixTreeY *& cst,BitSequenceDArray *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
             size_t vl,vr;
             cst->Root(&vl,&vr);
             this->n = vr;
@@ -97,7 +98,7 @@ class DocumentArray
 };
 
 
-BitSequenceRG * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
+BitSequenceDArray * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
     uint sum = 0;
     BitString *bs = new BitString(length+3);
     if (random) {
@@ -115,7 +116,7 @@ BitSequenceRG * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=fa
             bs->setBit(sum);
         }
     }
-    BitSequenceRG *bsrg = new BitSequenceRG(*bs,20);
+    BitSequenceDArray *bsrg = new BitSequenceDArray(*bs);
     delete bs;
     return bsrg;
 }
