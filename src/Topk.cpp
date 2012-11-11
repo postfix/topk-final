@@ -468,6 +468,7 @@ size_t Topk::getSize() {
     cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size << "\t" << map_size << "\t" << documents_size << "\t" << rmq_carray_size << "\t" << document_bitmap_size << "\t" << total << "\t" << total/(1024.00*1024.00) << "\t" << (total*1.0)/(this->length*1.0) << "\t" << endl;
     cout << "Internal nodes:" << internal_nodes << endl;
     cout << "Leaf nodes:" << leaf_nodes << endl;
+    cout << "Totla nodes:" << this->number_of_nodes << endl;
     cout << "Grid alphabet:" << this->d_sequence->getMaxValue() << endl;
     cout << "Grid Height:" << this->d_sequence->getHeight() << endl;
     return total;
