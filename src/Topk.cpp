@@ -403,22 +403,22 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
 
     vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
 //  cout << "vector size = " << v.size() << " | k " << k << endl;
-    // uint new_k = v.size();
-    // if (new_k < k) {
-    //     map<uint,uint> res;
-    //     for (int i = 0 ; i < v.size();i++) {
-    //         uint doc = this->doc_array->getField(v[i].second);
-    //         res[doc] = 1;
-    //     }
-    //     documentList(s_new_range,e_new_range,k-new_k,res);
-    // }
+    uint new_k = v.size();
+    if (new_k < k) {
+        map<uint,uint> res;
+        for (int i = 0 ; i < v.size();i++) {
+            uint doc = this->doc_array->getField(v[i].second);
+            res[doc] = 1;
+        }
+        documentList(s_new_range,e_new_range,k-new_k,res);
+    }
 
 
-    // uint doc,weight;
-    // for (int i = 0 ; i < v.size();i++) {
-    //     doc = this->doc_array->getField(v[i].second);
-    //     weight = this->max_freq - v[i].first;
-    // }
+    uint doc,weight;
+    for (int i = 0 ; i < v.size();i++) {
+        doc = this->doc_array->getField(v[i].second);
+        weight = this->max_freq - v[i].first;
+    }
    //     cout << "v[" << i << "].weight = " << this->max_freq - v[i].first << endl;
     //     cout << "v[" << i << "].pos = " << v[i].second << endl;
     //     cout << "v[" << i << "].doc = " << this->doc_array->getField(v[i].second) << endl;
