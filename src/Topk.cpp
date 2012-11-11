@@ -7,6 +7,7 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     cout << "loading file" << endl;
     if(loadText(file, &text, &this->length))
         return;
+    cout << "file length:" << this->length << endl;
    cout << "constructing suffix tree";
  //   cout << "length =" << this->length << endl;
     this->cst = new SuffixTreeY(text, this->length, NAIVE, CN_NPR, 32);
@@ -400,7 +401,7 @@ pair<double,double> Topk::query(uchar *q,uint size_q,uint k) {
     // cout << "MAX FREQ = " << max << " IN POS = " << max_pos << endl;
 
 
-//  vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
+    vector<pair<uint,uint> > v = this->d_sequence->range_call(s_new_range, e_new_range, 0, tdepth, k);
 //  cout << "vector size = " << v.size() << " | k " << k << endl;
     // uint new_k = v.size();
     // if (new_k < k) {
