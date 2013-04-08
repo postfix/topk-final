@@ -24,6 +24,7 @@ bp_rmm::bp_rmm(){
 
 bp_rmm::bp_rmm(int n, pb *B, int opt){
 	pb *B_aux = new pb[(n+D-1)/D];
+	this->n = n;
 	for(int i=0; i<n;i++)
 		setbit(B_aux,i,CP);
 	for(int i=0; i<n;i++){
@@ -79,7 +80,7 @@ uint bp_rmm::enclose(int v){
 }
 
 uint bp_rmm::size(){
-	uint mem = b1.idx_size;
+	uint mem = (b1.idx_size + this->n)/8;
 	//cout << "mem2 = " << mem << endl;
 	return mem;
 }

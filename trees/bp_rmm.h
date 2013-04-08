@@ -27,7 +27,7 @@ class bp_rmm: public balanced_parentheses{
 		bp_rmm();
 	public:
 		bp b1;
-
+		size_t n;
 
 		/*n:size of the bitmap
 		 * pb == uint  -> B is the bitmap

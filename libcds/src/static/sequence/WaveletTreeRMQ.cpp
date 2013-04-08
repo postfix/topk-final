@@ -462,8 +462,8 @@ namespace cds_static
             bytesBitstrings += bitstring[i]->getSize();
         for(uint i = 0; i < height; i++)
             rmqs += rmq[i]->getSize();
-            dacs = this->last_weight->getSize();
-        return bytesBitstrings + sizeof(uint) * (max_v + 2) + ptrs + rmqs + dacs;
+
+        return bytesBitstrings + sizeof(uint) * (max_v + 2) + ptrs + rmqs;
     }
 
     void WaveletTreeRMQ::build_level(uint **bm, uint *symbols, uint level, uint length, uint offset) {

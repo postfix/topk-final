@@ -460,12 +460,16 @@ size_t Topk::getSize() {
     size_t documents_size = this->doc_array->getSize();
     size_t rmq_carray_size = this->CRMQ->getSize();
     size_t document_bitmap_size = this->d->getSize();
-    size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size + rmq_carray_size + document_bitmap_size;
     size_t internal_nodes = this->bitsequence_map->countOnes();
+    size_t total = csa_size + wt_size + freq_array_size + map_size + tree_size + documents_size + rmq_carray_size + document_bitmap_size;
+    size_t total2 = csa_size + wt_size + freq_array_size + map_size + tree_size*4 + documents_size + rmq_carray_size*4 + document_bitmap_size;
     size_t leaf_nodes = this->bitmap_leaf->countOnes();
 
     cout << "CSA SIZE \t WT SIZE \t FREQ ARRAY \t TREE SIZE \t MAP SIZE \t DOCUMENT ARRAY \t CARRAY_RMQ \t DOC BITMAP \t  TOTAL \t TOTAL(MB) \t RATIO " << endl;
     cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size << "\t" << map_size << "\t" << documents_size << "\t" << rmq_carray_size << "\t" << document_bitmap_size << "\t" << total << "\t" << total/(1024.00*1024.00) << "\t" << (total*1.0)/(this->length*1.0) << "\t" << endl;
+//    cout << "---------------------------------------------------------------";
+//    cout << csa_size << "\t" << wt_size << "\t" << freq_array_size << "\t" << tree_size*4 << "\t" << map_size << "\t" << documents_size << "\t" << rmq_carray_size*4 << "\t" << document_bitmap_size << "\t" << total2 << "\t" << total2/(1024.00*1024.00) << "\t" << (total2*1.0)/(this->length*1.0) << "\t" << endl;
+
     cout << "Internal nodes:" << internal_nodes << endl;
     cout << "Leaf nodes:" << leaf_nodes << endl;
     cout << "Totla nodes:" << this->number_of_nodes << endl;
