@@ -28,7 +28,13 @@ class LinkList
 	void insert(size_t pos,size_t v, size_t w)
 	{
 		// cout << "inserting node = " << pos << endl;
+		// if (this->list[pos].size() != 0) {
+		// 	if (this->list[pos].back().first == v) {
+		// 		return;		
+		// 	}
+		// }
 		this->sizes[pos]++;
+		cout << "adding " << v << ", " << w << endl;
 		this->list[pos].push_back(make_pair(v,w));
 	}
 
@@ -47,8 +53,7 @@ class LinkList
 	}	
 	~LinkList()
 	{
-		for (int i = 0 ; i < this->n;i++)
-		{
+		for (int i = 0 ; i < this->n;i++) {
 			this->list[i].clear();
 		}
 		this->list.clear();

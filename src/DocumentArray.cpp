@@ -18,41 +18,26 @@ class DocumentArray
         size_t n;
         WaveletTreeNoptrs *doc_sequence;
 
-        DocumentArray(SuffixTreeY *& cst,BitSequenceRRR *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
+        DocumentArray(SuffixTreeY *& cst,BitSequenceRG *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
             size_t vl,vr;
             cst->Root(&vl,&vr);
             this->n = vr;
-            // cout << "size = " << this->n << endl;
-            // cout << "vr = " << vr << endl;
             this->doc_array = new uint[this->n + 1];
             for (size_t i = 0 ; i <= vr;i++) {
                 this->doc_array[i] = 0;
             }
             for (size_t i = 0 ; i <= vr;i++) {
                 size_t locate2 = s1->getSA(i);
-                // cout << "locate = " << locate2 << endl;
                 if (locate2 <= this->n) {
-
-                    // if (i % 1000 == 0 )
-                    //     cout << (double)(i*1.0/vr*1.0) << endl;
-
-                    this->doc_array[i] = d->rank1(locate2);
-                     // cout << "doc_array[" << i << "]" << this->doc_array[i] << endl;
+                     this->doc_array[i] = d->rank1(locate2);
                 }
             }
 
-
-            // cout << "constructing wavelet tree" << endl;
-            //uint *sequence = new uint[this->n];
             Array *A = new Array(this->doc_array,this->n);
             MapperNone * map = new MapperNone();
             BitSequenceBuilder * bsb = new BitSequenceBuilderRG(20);
             this->doc_sequence = new WaveletTreeNoptrs(*A, bsb, map);
-            // cout << "end!" << endl;
             delete A;
-//            delete []doc_array;
-            //delete map;
-            //delete bsb;
         }
 
         int * createCArray() {
@@ -86,37 +71,18 @@ class DocumentArray
 
         ~DocumentArray() {
             delete this->doc_sequence;
-            //delete[] this->doc_array;
         }
-        // void test()
-        // {
-        // 	cout << this->countRange(0,0,135) << endl;
-        // 	size_t * pair = this->selectDocument(1,1);
-        // //	cout << "pair[0] = " << pair[0] << " , pair[1] = " << pair[1] << endl;
-        // }
-
 };
 
 
-BitSequenceRRR * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
+BitSequenceRG * buildBs(size_t *file_sizes,size_t length,size_t n) {
     uint sum = 0;
     BitString *bs = new BitString(length+3);
-    if (random) {
-        srand ( time(NULL) );
-        for (int i = 0 ; i < n;i++) {
-            sum = rand() % (length);
-            // cout << "Setting random bit " << sum << " to 1" << endl;
-            bs->setBit(sum);
-        }
+    for (int i = 1;i<n;i++) {
+        sum += file_sizes[i-1];
+        bs->setBit(sum);
     }
-    else {
-        for (int i = 1;i<n;i++) {
-            sum += file_sizes[i-1];
-             // cout << "setting bit " << sum << " to 1" << endl;
-            bs->setBit(sum);
-        }
-    }
-    BitSequenceRRR *bsrg = new BitSequenceRRR(*bs,20);
+    BitSequenceRG *bsrg = new BitSequenceRG(*bs,20);
     delete bs;
     return bsrg;
 }

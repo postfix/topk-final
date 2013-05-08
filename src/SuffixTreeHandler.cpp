@@ -53,21 +53,7 @@ class SuffixTreeHandler
             size_t a,b;
             cst->Root(&a,&b);
             generateBitmapAux(make_pair(a,b),bitmap,bitmap_pos,nodes);
-            // cout << "bitmap_pos = " << bitmap_pos << endl;
-            // cout << ")";
-            // cout << "nodes.size() = " << nodes.size() << endl;
             BitString *new_bitmap = new BitString(bitmap->getData(),bitmap_pos);
-            // for (int i = 0 ; i < nodes.size();i++) {
-            //     cout << nodes[i].first << endl;
-            // }
-            // cout << "=========== tree ==========" << endl;
-            // for (int i = 0 ;i < bitmap_pos;i++) {
-            //     if (bitmap->getBit(i)) 
-            //         cout << ")";
-            //     else 
-            //         cout << "(";
-            // }
-            // cout << endl;
 
             return make_pair(new_bitmap,bitmap_pos);
         }

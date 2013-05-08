@@ -27,6 +27,7 @@ RMQ::~RMQ()
 
 unsigned int RMQ::query(size_t i,size_t j)
 {
+	if (i==j) return i;
 	uint v1 = this->t->Preorden_Select(i+2);
 	uint v2 = this->t->Preorden_Select(j+2);
 	uint v = this->t->Lca(v1,v2);	
