@@ -51,9 +51,12 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     this->ll = new LinkList(2*length);
     int *CARRAY = this->da->createCArray();
     this->CRMQ = new RMQ(CARRAY,length);
-
+    cout << "Filling linklist..." << endl;
     this->fillLinkList(num_files);
+    cout << " DONE ! " << endl;
+    cout << "generating sequence" << endl;
     this->generateSequence();
+    cout << "DONE!" << endl;
 }
 
 void Topk::fillLinkList(uint num_files) {
@@ -67,12 +70,12 @@ void Topk::fillLinkList(uint num_files) {
         while(pairc.first <= this->length+1 && pairc.second <= this->length+1) {
             size_t vl_lca,vr_lca;
             // obtain the LCA of both of them
-            uint node1 = this->t->Preorden_Select(nodes_preorder[make_pair(pairc.first,pairc.first)]+1);
-            uint node2 = this->t->Preorden_Select(nodes_preorder[make_pair(pairc.second,pairc.second)]+1);
+//            uint node1 = this->t->Preorden_Select(nodes_preorder[make_pair(pairc.first,pairc.first)]+1);
+//            uint node2 = this->t->Preorden_Select(nodes_preorder[make_pair(pairc.second,pairc.second)]+1);
             this->cst->LCA(pairc.first,pairc.first,pairc.second,pairc.second,&vl_lca,&vr_lca);
-            uint lca = this->t->Lca(node1,node2);
+  //          uint lca = this->t->Lca(node1,node2);
             // if something goes out of place...
-            if (lca == (uint)-1)
+            if (vl_lca == (size_t)-1 || vr_lca == (size_t)-1)
                 break;
             // if (vl_lca == 0 && vr_lca == 0)
             //     break;
@@ -81,7 +84,7 @@ void Topk::fillLinkList(uint num_files) {
             // the lca node number
             // the document that corresponds
             // the frequency for that node and document.
-            this->ll->insert(this->t->Preorder_Rank(lca)-1,i-1,da->countRange(i-1,vl_lca,vr_lca));
+            this->ll->insert(nodes_preorder[make_pair(vl_lca,vr_lca)],i-1,da->countRange(i-1,vl_lca,vr_lca));
         //    cout << "inserting node = " << this->t->Preorder_Rank(lca) << " doc = " << i-1 << " with freq = " << da->countRange(i-1,vl_lca,vr_lca) << endl;
             pos++;
             pairc = this->da->selectDocument(i-1,pos+1);
@@ -255,6 +258,8 @@ void Topk::generateSequence() {
 
 
         for (uint i = 0; i < this->number_of_nodes;i++) {
+	    if (i % 1000000 == 0) 
+		cout << i*1.0/this->number_of_nodes*1.0 << "(" << i << "/" << this->number_of_nodes << ")" <<  endl;
             pair<uint,uint> aux_node = this->preorder_vector[i];
             if (aux_node.first == aux_node.second) {
                 map_leaf->setBit(i);
@@ -272,9 +277,9 @@ void Topk::generateSequence() {
             if (this->ll->getSize(i) == 0) {
                 continue;
             }
-            sum += this->ll->getSize(i);
+//            sum += this->ll->getSize(i);
             pair<uint,uint> node_aux = preorder_vector[i];
-            bool cont = true;
+  //          bool cont = true;
             size_t vl,vr;
             vl = node_aux.first;
             vr = node_aux.second;
@@ -282,7 +287,7 @@ void Topk::generateSequence() {
                 cst->Parent(vl,vr,&vl_p,&vr_p);
                 // there is NO parent with a higher frequency...
                 if (vl_p == (size_t)-1 || vr_p == (size_t)-1) {
-                    if(i == 0) {
+    /*                if(i == 0) {
                         uint l = 0;
                         cout << "Damn, node " << i << " has no parent" << " document = " << l <<  endl;
                         pair<uint,uint> aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
@@ -298,7 +303,7 @@ void Topk::generateSequence() {
                             aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
                         }
                         break;
-                    }
+                    }*/
                     break;
                 }
                 // FIN CASO ANOMALO
@@ -318,9 +323,9 @@ void Topk::generateSequence() {
                     vr_p = p1r;
                 }
                 // cout << "aux.first = " << aux2.first << endl;
-                if (vl_p == (size_t)-1 && vr_p == (size_t) - 1) {
-                    continue;
-                }
+//                if (vl_p == (size_t)-1 && vr_p == (size_t) - 1) {
+//                    continue;
+//                }
                 // BUSCO EL DOCUMENT O
                 while (aux2.first != aux.first) { 
                     l++;
@@ -342,9 +347,9 @@ void Topk::generateSequence() {
                     // cout << "vl_p = " << vl_p << endl;
                     // cout << "vr_p = " << vr_p << endl;
                     // cout << "preorden select " << this->t->Preorden_Select(this->nodes_preorder[make_pair(vl_p,vr_p)]) << endl;
-                    uint parent = this->t->Preorden_Select(this->nodes_preorder[make_pair(vl_p,vr_p)]+1);
+//                    uint parent = this->t->Preorden_Select(this->nodes_preorder[make_pair(vl_p,vr_p)]+1);
                     // cout << "parent = " << parent << endl;
-                    size_t tdepth = this->t->Depth(parent); // calculate the tree depth
+                    size_t tdepth = this->cst->TDepth(vl_p,vr_p); // calculate the tree depth
                     depth_sequence.push_back(tdepth); // add the Tree Depth (0 is reserved for the dummy ones)
                     this->documents.push_back(aux.first); // add the document 
                     frequencies.push_back(aux.second); // add the frequency
@@ -356,7 +361,7 @@ void Topk::generateSequence() {
                         this->max_freq = aux.second;
                     vl = node_aux.first;
                     vr = node_aux.second;
-                    cst->Parent(vl,vr,&vl_p,&vr_p); 
+//                    cst->Parent(vl,vr,&vl_p,&vr_p); 
                     uint old_doc = aux.first;
                 //    cout << "i = " << i << endl;
                     while (old_doc == aux.first) {
@@ -372,6 +377,7 @@ void Topk::generateSequence() {
             } // end while parent
         } // end for next i
 
+    cout << "DONE WITH SEQUENCE! " << endl;
      uint *bsmap_data =  bsmap->getData();  
     //uint *bsleaf_data = bsleaf->getData();
     uint *leaf_data = map_leaf->getData();
