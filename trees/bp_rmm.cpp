@@ -80,7 +80,7 @@ uint bp_rmm::enclose(int v){
 }
 
 uint bp_rmm::size(){
-	uint mem = (b1.idx_size + this->n)/8;
+	uint mem = b1.idx_size + (this->n)/8;
 	//cout << "mem2 = " << mem << endl;
 	return mem;
 }

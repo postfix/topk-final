@@ -18,7 +18,7 @@ class DocumentArray
         size_t n;
         WaveletTreeNoptrs *doc_sequence;
 
-        DocumentArray(SuffixTreeY *& cst,BitSequenceDArray *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
+        DocumentArray(SuffixTreeY *& cst,BitSequenceRRR *& d,vector< pair<uint,uint> > nodes,TextIndex *&s1) {
             size_t vl,vr;
             cst->Root(&vl,&vr);
             this->n = vr;
@@ -98,7 +98,7 @@ class DocumentArray
 };
 
 
-BitSequenceDArray * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
+BitSequenceRRR * buildBs(size_t *file_sizes,size_t length,size_t n,bool random=false) {
     uint sum = 0;
     BitString *bs = new BitString(length+3);
     if (random) {
@@ -116,7 +116,7 @@ BitSequenceDArray * buildBs(size_t *file_sizes,size_t length,size_t n,bool rando
             bs->setBit(sum);
         }
     }
-    BitSequenceDArray *bsrg = new BitSequenceDArray(*bs);
+    BitSequenceRRR *bsrg = new BitSequenceRRR(*bs,20);
     delete bs;
     return bsrg;
 }

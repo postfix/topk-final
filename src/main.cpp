@@ -28,8 +28,7 @@ int main(int argc, char *argv[]) {
     Topk *tk = new Topk(file,file_sizes,files.size());
     vector<vector<string> > general_queries;
 
-    tk->getSize();
-/*    cout << "generating queries..." << endl;
+    cout << "generating queries..." << endl;
     int h = 1;
     while(h<=70) { 
         vector<string> queries = generateQueries(file,h,4000);
@@ -43,9 +42,9 @@ int main(int argc, char *argv[]) {
     }
     cout << "end!" << endl;
 
-
+    tk->getSize();
     int increase = 10;
-   for (int kk = 10;kk<=1000;kk+=increase) {
+   for (int kk = 10;kk<=90;kk+=increase) {
 	if (kk>=100) { increase = 100; }
         for (int i = 0;i<general_queries.size();i++) {
             vector<string> qreal = general_queries[i];            
@@ -84,7 +83,7 @@ int main(int argc, char *argv[]) {
         }
     }
         
+    tk->getSize();
     delete [] file_sizes;
     delete tk;
-*/
 }

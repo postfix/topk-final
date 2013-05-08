@@ -41,7 +41,7 @@ class Topk
         TextIndex *ticsa;
         WaveletTreeRMQ *d_sequence;
         tree_ff *t;
-        BitSequenceDArray * d;
+        BitSequenceRRR * d;
 
         Array *doc_array;
         factorization *freq_dacs;

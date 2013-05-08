@@ -42,7 +42,9 @@ class LinkList
 		return this->list[pos][index];
 	}
 	
-	
+	size_t getSize(uint i) {
+		return this->list[i].size();
+	}	
 	~LinkList()
 	{
 		for (int i = 0 ; i < this->n;i++)

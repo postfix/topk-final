@@ -36,11 +36,11 @@ Topk::Topk(char * file,size_t *file_sizes, int num_files) {
     this->number_of_nodes = preorder_vector.size();
     this->preorder_vector = preorder_vector;
 
-    this->t = new tree_ff(tree_parenthesis.first->getData(),tree_parenthesis.second,OPT_FAST_LCA | OPT_FAST_PREORDER_SELECT | OPT_FAST_LEAF_SELECT);
+    this->t = new tree_ff(tree_parenthesis.first->getData(),tree_parenthesis.second,0);
     delete tree_parenthesis.first;
 
     // create bitmap Document Array
-    BitSequenceDArray *bsrg;
+    BitSequenceRRR *bsrg;
     if (make_random_flag)
         bsrg = buildBs(file_sizes,length,rand_files,true);
     else
@@ -91,7 +91,7 @@ void Topk::fillLinkList(uint num_files) {
                 break;
         }
     }
-}
+}/*
 void Topk::generateSequence() {
 //    cout << "Constructing Sequences" << endl;
     this->max_freq = 0;
@@ -230,7 +230,149 @@ void Topk::generateSequence() {
 
     }
 
-    uint *bsmap_data =  bsmap->getData();  
+   }
+*/
+void Topk::generateSequence() {
+	cout << "Constructing Sequences" << endl;
+        this->max_freq = 0;
+        size_t sum = 0;
+        vector<uint> frequencies;
+        vector<uint> depth_sequence;
+        size_t pointersize = 0;
+        size_t bitmap_size = 0;
+        // a 1 is set every time a node is being examinated. 
+        // all 0's corresponds to different documents for the same node.
+        BitString *bsmap = new BitString(5*this->number_of_nodes);
+        // if is a leaf, mark it here
+        //BitString *bsleaf = new BitString(50*this->number_of_nodes);
+        // map leaf is to map the cst indexing to the pre-order traversal.
+        BitString *map_leaf = new BitString(this->number_of_nodes);
+        size_t internal_nodes = 0;
+        size_t docs_node = 0;
+        size_t docs_aux = 0; 
+        size_t docs_acum = 0 ;      
+        size_t vl_p,vr_p;
+
+
+        for (uint i = 0; i < this->number_of_nodes;i++) {
+            pair<uint,uint> aux_node = this->preorder_vector[i];
+            if (aux_node.first == aux_node.second) {
+                map_leaf->setBit(i);
+                continue;
+            }
+
+            bsmap->setBit(internal_nodes+depth_sequence.size());
+            internal_nodes++;
+
+            size_t k = 0;
+            // get the i-th node, the k-th document.
+            // the document is aux.first
+            // the frequency of that node, for that document is aux.second
+            pair<uint,uint> aux = this->ll->getValue(i,k);
+            if (this->ll->getSize(i) == 0) {
+                continue;
+            }
+            sum += this->ll->getSize(i);
+            pair<uint,uint> node_aux = preorder_vector[i];
+            bool cont = true;
+            size_t vl,vr;
+            vl = node_aux.first;
+            vr = node_aux.second;
+            while(aux.second != (uint)-1) {
+                cst->Parent(vl,vr,&vl_p,&vr_p);
+                // there is NO parent with a higher frequency...
+                if (vl_p == (size_t)-1 || vr_p == (size_t)-1) {
+                    if(i == 0) {
+                        uint l = 0;
+                        cout << "Damn, node " << i << " has no parent" << " document = " << l <<  endl;
+                        pair<uint,uint> aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
+                        while(aux2.second != (uint)-1 && aux.first != (uint)-1) {
+                            this->documents.push_back(aux.first);
+                            frequencies.push_back(aux.second);
+                            depth_sequence.push_back(0);
+                            // g->addDocument(internal_nodes,0,aux.first,aux.second);
+                            // cout << "internal node = " << internal_nodes << " has pointer to:" << 0 << " doc = " << aux.first << endl;
+                            if (aux.second > max_freq)
+                                this->max_freq = aux.second;
+                            l++; // move to the next document
+                            aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
+                        }
+                        break;
+                    }
+                    break;
+                }
+                // FIN CASO ANOMALO
+                size_t l = 0;
+                // get the document_id and frequency of the parent (aux2)
+                pair<uint,uint> aux2 = ll->getValue(nodes_preorder[make_pair(vl_p,vr_p)],l);
+                size_t p1r = 0;
+                size_t p1l = 0;
+                // SI EL PADRE NO TIENE NADA!
+                // BUSCO ALGUN PADRE QUE TENGA ALGO!
+                while(aux2.first == (uint)-1 && i != 0) {
+                    // cout << "entre con " << aux2.first << endl;
+                    l = 0;
+                    this->cst->Parent(vl_p, vr_p, &p1l,  &p1r);
+                    aux2 = ll->getValue(nodes_preorder[make_pair(p1l, p1r)], l);
+                    vl_p = p1l;
+                    vr_p = p1r;
+                }
+                // cout << "aux.first = " << aux2.first << endl;
+                if (vl_p == (size_t)-1 && vr_p == (size_t) - 1) {
+                    continue;
+                }
+                // BUSCO EL DOCUMENT O
+                while (aux2.first != aux.first) { 
+                    l++;
+                    // cout << "@ analyzing node = " << internal_nodes << "with document = " << aux.first << "vs = " << aux2.first << " l = " <<  l << endl; 
+                    // cout << "@ frequency analysis = " << aux.second << "vs " << aux2.second << endl;
+                    aux2 = ll->getValue(nodes_preorder[make_pair(vl_p, vr_p)], l);
+                    if (aux2.first == (uint)-1) { 
+                        // NO ENCONTRE EL DOCUMENTO ACA
+                        break;
+                    }
+                }
+                // while (aux2.second < aux.second && aux.first == aux2.first) {
+                //     // cout << "@ Searching greater ferq = " << internal_nodes << "with document = " << aux.second << "vs = " << aux2.second << " l = " <<  l << endl; 
+                //     aux2 = ll->getValue(nodes_preorder[make_pair(vl_p, vr_p)], l);
+                //     l++;
+                // }
+                if (aux2.first == aux.first && aux2.second > aux.second) {
+                    // cout << "encontre!" << aux2.first << "," << aux.first << endl;
+                    // cout << "vl_p = " << vl_p << endl;
+                    // cout << "vr_p = " << vr_p << endl;
+                    // cout << "preorden select " << this->t->Preorden_Select(this->nodes_preorder[make_pair(vl_p,vr_p)]) << endl;
+                    uint parent = this->t->Preorden_Select(this->nodes_preorder[make_pair(vl_p,vr_p)]+1);
+                    // cout << "parent = " << parent << endl;
+                    size_t tdepth = this->t->Depth(parent); // calculate the tree depth
+                    depth_sequence.push_back(tdepth); // add the Tree Depth (0 is reserved for the dummy ones)
+                    this->documents.push_back(aux.first); // add the document 
+                    frequencies.push_back(aux.second); // add the frequency
+                    // g->addDocument(internal_nodes,tdepth,aux.first,aux.second);
+                    //pointersize++; // increase the amount of pointers
+                    // cout << "! internal node = " << internal_nodes << " has pointer to:" << tdepth << " document = " << aux.first << endl;
+                    // cout << "docs_node = " << docs_node << endl;
+                    if (aux.second > max_freq)
+                        this->max_freq = aux.second;
+                    vl = node_aux.first;
+                    vr = node_aux.second;
+                    cst->Parent(vl,vr,&vl_p,&vr_p); 
+                    uint old_doc = aux.first;
+                //    cout << "i = " << i << endl;
+                    while (old_doc == aux.first) {
+                //        cout << "getting next document since they are equal " << old_doc << " , " << aux.first << endl;
+                        k++; // get the next document,freq of the node being examinated
+                        aux = this->ll->getValue(i,k); 
+                    }
+                  //  cout << "found new document!" << aux.first << endl;
+                } else {
+                    vl = vl_p; // set the initial values, to get the parent of the parent and so on...
+                    vr = vr_p;
+                }
+            } // end while parent
+        } // end for next i
+
+     uint *bsmap_data =  bsmap->getData();  
     //uint *bsleaf_data = bsleaf->getData();
     uint *leaf_data = map_leaf->getData();
     //  for (int i = 0 ; i < this->number_of_nodes+depth_sequence.size();i++) {
@@ -323,7 +465,6 @@ void Topk::generateSequence() {
     //delete bsleaf;
   //  cout << "Done! " << endl;
 }
-
 void Topk::documentList(uint i, uint j,uint k,map<uint,uint> &results) {
   if (i>j) return;
   if (k == 0) return;
